@@ -10,7 +10,6 @@ class EffectLevel(db.Model):
   effectId = db.Column(db.Integer)
   categoryDetailId = db.Column(db.Integer)
   powerId = db.Column(db.Integer)
-  calcuration = db.Column(db.String(254))
 
 
   def insert(rowData):
@@ -42,14 +41,13 @@ class EffectLevel(db.Model):
                 c.id as categoryDetailId,
                 c.name as categoryDetailName,
                 d.id as powerId,
-                d.name as powerName,
-                a.calcuration
+                d.name as powerName
               from effect_levels a
               inner join effects b on a.effectId = b.id
               inner join category_details c on a.categoryDetailId = c.id
               inner join powers d on a.powerId = d.id
               order by b.id"""
   
-    lists = db.session.connection().execute(text(cmd))
+    records = db.session.connection().execute(text(cmd))
 
-    return list(map(lambda row: EffectLevelValue(**dict(row)), lists))
+    return list(map(lambda row: EffectLevelValue(**dict(row)), records))

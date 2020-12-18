@@ -49,6 +49,10 @@ def update_level():
   res = EffectCommand.update_level(data)
   return make_response(jsonify(res),200)
 
+@effect_router.route('/effect/level/detail/get_list', methods=['GET'])
+def get_list_level_detail_all():
+  res = EffectQuery.get_list_level_detail()
+  return make_response(jsonify(res),200)
 
 @effect_router.route('/effect/level/detail/get_list/<effectLevelId>/', methods=['GET'])
 def get_list_level_detail(effectLevelId):

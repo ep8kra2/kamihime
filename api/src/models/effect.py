@@ -1,5 +1,6 @@
 from src.database import db, ma
 from sqlalchemy.sql import text
+from src.tool.common import to_dict_from_sql_record
 from src.domain.value.effect import EffectPower
 from src.domain.value.effect import EffectValue
 
@@ -49,15 +50,8 @@ class Effect(db.Model):
               inner join category_details c on a.categoryDetailId = c.id
               order by a.id"""
   
-    lists = db.session.connection().execute(text(cmd))
-
-    return list(map(lambda row: EffectValue(
-      id = row.id,
-      name = row.name,
-      categoryId = row.categoryId,
-      categoryName = row.categoryName,
-      categoryDetailId = row.categoryDetailId,
-      categoryDetailName = row.categoryDetailName), lists))
+    records = db.session.connection().execute(text(cmd))
+    return list(map(lambda row: EffectValue(**dict(row)), records))
 
   def getEffectPowerList(effectData):
 

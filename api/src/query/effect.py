@@ -11,3 +11,6 @@ class EffectQuery:
 
   def get_list_level_detail(id):
     return EffectLevelDetail.get_list(id)
+
+  def get_list_level_detail():
+    return EffectLevelDetail.get_list()

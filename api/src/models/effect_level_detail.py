@@ -34,7 +34,11 @@ class EffectLevelDetail(db.Model):
     return 'success'
 
   def get_list(id):
-    lists =  db.session.query(EffectLevelDetail).filter(EffectLevelDetail.effectLevelId == id).order_by(EffectLevelDetail.level.asc()).all()
-    return list(map(lambda row: EffectLevelDetailValue(**to_dict_from_sql_record(row)), lists))
+    records =  db.session.query(EffectLevelDetail).filter(EffectLevelDetail.effectLevelId == id).order_by(EffectLevelDetail.level.asc()).all()
+    return list(map(lambda row: EffectLevelDetailValue(**to_dict_from_sql_record(row)), records))
+ 
+  def get_list():
+    records =  db.session.query(EffectLevelDetail).order_by(EffectLevelDetail.level.asc()).all()
+    return list(map(lambda row: EffectLevelDetailValue(**to_dict_from_sql_record(row)), records))
  
    

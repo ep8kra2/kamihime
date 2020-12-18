@@ -19,7 +19,6 @@ class EffectLevelValue:
   categoryDetailName: str
   powerId: int
   powerName: str
-  calcuration: str
 
 @dataclasses.dataclass(frozen=True)
 class EffectLevelDetailValue:

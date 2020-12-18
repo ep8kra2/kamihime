@@ -83,7 +83,6 @@ export const Summary = () => {
       <TabPanel value={value} index={2}>
         Item Three
       </TabPanel>
-
     </Paper>
   )
 }

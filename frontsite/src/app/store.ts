@@ -1,4 +1,4 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { configureStore, ThunkAction, Action, getDefaultMiddleware } from '@reduxjs/toolkit';
 import effectSlice from '../state/effect/slice';
 import effectLevelSlice from '../state/effectlevel/slice';
 import weaponSlice from '../state/weapon/slice';
@@ -24,6 +24,9 @@ export const store = configureStore({
     rarity: raritySlice.reducer,
     calcurate: calcurateSlice.reducer
   },
+  middleware: getDefaultMiddleware({
+    serializableCheck: false
+  })
 });
 
 export type RootState = ReturnType<typeof store.getState>;
