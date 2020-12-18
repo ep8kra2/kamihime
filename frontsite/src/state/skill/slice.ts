@@ -5,14 +5,16 @@ import { fetchAsyncList,
   fetchAsyncUpdate,
   fetchAsyncSelectedListEffect,
   fetchAsyncInsertEffect,
-  fetchAsyncUpdateEffect
+  fetchAsyncUpdateEffect,
+  fetchAsyncListEffect
 } from './operation';
 
 const initialSkillState: SkillState = {
   selected:{} as Skill,
   selectedEffect:{} as SkillEffect,
   selectedEffectList:[] as SkillEffect[],
-  list:[] as Skill[]
+  list:[] as Skill[],
+  listEffect:[] as SkillEffect[]
 }
 
 const skillSlice = createSlice({
@@ -54,6 +56,12 @@ const skillSlice = createSlice({
     .addCase(fetchAsyncUpdateEffect.fulfilled, (state, action) => {
       return {
         ...state
+      }
+    })
+    .addCase(fetchAsyncListEffect.fulfilled, (state,action) => {
+      return {
+        ...state,
+        listEffect: action.payload
       }
     })
   }

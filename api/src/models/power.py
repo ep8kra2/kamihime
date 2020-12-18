@@ -9,8 +9,8 @@ class Power(db.Model):
   name = db.Column(db.String(100))
 
   def get_list():
-    record =  db.session.query(Power).order_by(Power.id.asc()).all()
-    return list(map(lambda row: PowerValue(**to_dict_from_sql_record(row)) , record))
+    records =  db.session.query(Power).order_by(Power.id.asc()).all()
+    return list(map(lambda row: PowerValue(**to_dict_from_sql_record(row)) , records))
 
   def insert(rowData):
     record = Power(

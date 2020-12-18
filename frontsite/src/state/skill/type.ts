@@ -16,4 +16,5 @@ export type SkillState={
   selectedEffect:SkillEffect,
   selectedEffectList:SkillEffect[],
   list:Skill[],
+  listEffect:SkillEffect[]
 }

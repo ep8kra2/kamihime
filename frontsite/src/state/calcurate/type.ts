@@ -1,6 +1,10 @@
 import { Weapon } from '../weapon/type'
 import { Phantom } from '../phantom/type'; 
 import {Hiroic,Vigorous,Pride,Rebellion} from '../../domain/type';
+import { Effect } from '../../state/effect/type';
+import { SkillEffect } from '../skill/type';
+import { EffectLevel, EffectLevelDetail } from '../effectlevel/type';
+import { CategoryDetail } from '../category/type';
 
 export type Calcurate = {
   hiroic:Hiroic,
@@ -31,6 +35,7 @@ export type Parameter = {
 }
 
 export type AttackNormal = {
+  elementId:number,
   elementName:string,
   attack:number,
   assault:number,
@@ -42,6 +47,7 @@ export type AttackNormal = {
 }
 
 export type AttackBurst = {
+  elementId:number,
   elementName:string,
   attack:number,
   assault:number,
@@ -53,6 +59,7 @@ export type AttackBurst = {
 }
 
 export type AttackAbility = {
+  elementId:number,
   elementName:string,
   attack:number,
   assault:number,
@@ -71,5 +78,10 @@ export type CalcurateState = {
   attackNormal:AttackNormal[],
   attackBurst:AttackBurst[],
   attackAbility:AttackAbility[],
-  calcurate:Calcurate
+  calcurate:Calcurate,
+  effectList:Effect[],
+  skillEffectList:SkillEffect[],
+  effectLevelList:EffectLevel[],
+  effectLevelDetailList:EffectLevelDetail[],
+  categoryDetailList:CategoryDetail[]
 }

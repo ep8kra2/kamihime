@@ -19,6 +19,7 @@ export type EffectLevelDetail = {
 export type EffectLevelState = {
   selected:EffectLevel,
   list:EffectLevel[],
+  selectedDetailList:EffectLevelDetail[],
   detailList:EffectLevelDetail[],
   asyncStatus:string
 }

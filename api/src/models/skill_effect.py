@@ -42,12 +42,21 @@ class SkillEffect(db.Model):
               where skillId = :bindSkillId
               order by a.id"""
   
-    lists = db.session.connection().execute(text(cmd),bindSkillId = skillId)
+    records = db.session.connection().execute(text(cmd),bindSkillId = skillId)
 
-    return list(map(lambda row: SkillEffectValue(
-      id = row.id,
-      skillId = row.skillId,
-      skillName = row.skillName,
-      effectId = row.effectId,
-      effectName = row.effectName
-    ), lists))
+    return list(map(lambda row: SkillEffectValue(**dict(row)), records))
+
+  def get_list_all():
+    cmd = """select a.id,
+                a.skillId,
+                b.name as skillName,
+                a.effectId,
+                c.name as effectName
+              from skill_effects a
+              inner join skills b on a.skillId = b.id
+              inner join effects c on a.effectId = c.id
+              order by a.id"""
+  
+    records = db.session.connection().execute(text(cmd))
+
+    return list(map(lambda row: SkillEffectValue(**dict(row)), records))

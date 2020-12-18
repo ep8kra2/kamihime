@@ -7,12 +7,12 @@ import Button from '@material-ui/core/Button';
 import MaterialTable from 'material-table';
 import { EffectLevel,EffectLevelDetail } from '../../state/effectlevel/type';
 import {
-  fetchAsyncDetailList,
+  fetchAsyncSelectedDetailList,
   fetchAsyncDetailInsert,
   fetchAsyncDetailUpdate
 } from '../../state/effectlevel/operation';
 import {
-  useDetailList
+  useSelectedDetailList
 } from '../../state/effectlevel/selector';
 
 export interface DialogProps {
@@ -31,7 +31,7 @@ const DetailDialog = (props: DialogProps) => {
 
   React.useEffect(() => {
     const promise = async () => {
-      await dispatch(fetchAsyncDetailList(effectLevel))
+      await dispatch(fetchAsyncSelectedDetailList(effectLevel))
     }
     promise();
   }, [effectLevel,dispatch])
@@ -39,7 +39,7 @@ const DetailDialog = (props: DialogProps) => {
   const handleInsert = (rowData:EffectLevelDetail) => {
     const promise = async () => {
       await dispatch(fetchAsyncDetailInsert({...rowData,effectLevelId:effectLevel.id}))
-      await dispatch(fetchAsyncDetailList(effectLevel))
+      await dispatch(fetchAsyncSelectedDetailList(effectLevel))
     }
     promise();
   }
@@ -48,12 +48,12 @@ const DetailDialog = (props: DialogProps) => {
     const promise = async () => {
       console.log(rowData)
       await dispatch(fetchAsyncDetailUpdate(rowData))
-      await dispatch(fetchAsyncDetailList(effectLevel))
+      await dispatch(fetchAsyncSelectedDetailList(effectLevel))
     }
     promise();
   }
 
-  const rowData = useDetailList();
+  const rowData = useSelectedDetailList();
   console.log(rowData)
 
   return (

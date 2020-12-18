@@ -4,6 +4,7 @@ import {
   fetchAsyncList,
   fetchAsyncInsert,
   fetchAsyncUpdate,
+  fetchAsyncSelectedDetailList,
   fetchAsyncDetailList,
   fetchAsyncDetailUpdate,
   fetchAsyncDetailInsert
@@ -12,7 +13,8 @@ import {
 const initialEffectLevelState: EffectLevelState = {
   selected:{} as EffectLevel,
   list:[] as EffectLevel[],
-  detailList:[] ,
+  selectedDetailList:[] ,
+  detailList:[] as EffectLevelDetail[],
   asyncStatus:''
 }
 
@@ -54,6 +56,12 @@ export const effectLevelSlice = createSlice({
         return {
           ...state,
           asyncStateus:'SUCCESS'
+        }
+      })
+      .addCase(fetchAsyncSelectedDetailList.fulfilled,(state:EffectLevelState,action:PayloadAction<EffectLevelDetail[]>) => {
+        return {
+          ...state,
+          selectedDetailList:action.payload
         }
       })
       .addCase(fetchAsyncDetailList.fulfilled,(state:EffectLevelState,action:PayloadAction<EffectLevelDetail[]>) => {

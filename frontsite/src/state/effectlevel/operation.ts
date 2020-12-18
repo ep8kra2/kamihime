@@ -31,10 +31,19 @@ export const fetchAsyncUpdate = createAsyncThunk(
   }
 )
 
-export const fetchAsyncDetailList = createAsyncThunk(
-  'effectlevel/detail/list',
+export const fetchAsyncSelectedDetailList = createAsyncThunk(
+  'effectlevel/detail/selectedlist',
   async(rowData:EffectLevel) => {
     const response = await axios.get(url + `detail/get_list/${rowData.id}`);
+
+    return response.data;
+  }
+)
+
+export const fetchAsyncDetailList = createAsyncThunk(
+  'effectlevel/detail/list',
+  async() => {
+    const response = await axios.get(url + `detail/get_list`);
 
     return response.data;
   }

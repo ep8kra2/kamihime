@@ -30,6 +30,14 @@ export const fetchAsyncUpdate = createAsyncThunk(
   }
 )
 
+export const fetchAsyncListEffect = createAsyncThunk(
+  'skill/effect/ListAll',
+  async () => {
+    const response = await axios.get(url + `effect/get_list`);
+    return response.data
+  }
+)
+
 export const fetchAsyncSelectedListEffect = createAsyncThunk(
   'skill/effect/List',
   async (rowData:Skill) => {

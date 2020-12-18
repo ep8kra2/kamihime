@@ -25,6 +25,12 @@ def update():
   res = SkillCommand.update(data)
   return make_response(jsonify(res),200)
 
+@skill_router.route('/skill/effect/get_list', methods=['GET'])
+def get_list_effect_all():
+  res = SkillQuery.get_list_effect_all()
+  print(res)
+  return make_response(jsonify(res),200)
+
 @skill_router.route('/skill/effect/get_list/<skillId>', methods=['GET'])
 def get_list_effect(skillId):
   res = SkillQuery.get_list_effect(skillId)

@@ -12,3 +12,7 @@ export const useList = () => {
 export const useSelectedListEffect = () => {
   return useSelector((state:RootState) => state.skill.selectedEffectList)
 }
+
+export const useListEffect = () => {
+  return useSelector((state:RootState) => state.skill.listEffect)
+}
