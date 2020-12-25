@@ -1,16 +1,12 @@
 import { createSlice,PayloadAction } from '@reduxjs/toolkit';
-import { Category,CategoryState,CategoryDetail } from './type';
+import { Category,CategoryState } from './type';
 import { 
-  fetchAsyncList,fetchAsyncInsert,fetchAsyncUpdate,
-  fetchAsyncDetailInsert,fetchAsyncDetailUpdate,
-  fetchAsyncDetailList
+  fetchAsyncList,fetchAsyncInsert,fetchAsyncUpdate
 } from './operation';
 
 const initialCategoryState: CategoryState = {
   selected:{} as Category,
-  list:[] as Category[],
-  detailSelected:{} as CategoryDetail,
-  detailList:[] as CategoryDetail[]
+  list:[] as Category[]
 }
 
 export const categorySlice = createSlice({
@@ -20,9 +16,6 @@ export const categorySlice = createSlice({
     selected: (state:CategoryState,action:PayloadAction<Category>) => {
       state.selected = action.payload
     },
-    detailSelected: (state:CategoryState,action:PayloadAction<CategoryDetail>) => {
-      state.detailSelected = action.payload
-    }
   },
   extraReducers:(builder) => {
     builder.addCase(fetchAsyncList.fulfilled, (state:CategoryState, action:PayloadAction<any>) => {
@@ -40,16 +33,6 @@ export const categorySlice = createSlice({
       return {...state}
     })
     .addCase(fetchAsyncUpdate.fulfilled, (state:CategoryState,action) => {
-      return {...state}
-    })
-    .addCase(fetchAsyncDetailList.fulfilled, (state:CategoryState,action) => {
-      state.detailList = action.payload
-    })    
-
-    .addCase(fetchAsyncDetailInsert.fulfilled, (state:CategoryState,action) => {
-      return {...state}
-    })
-    .addCase(fetchAsyncDetailUpdate.fulfilled, (state:CategoryState,action) => {
       return {...state}
     })
   }

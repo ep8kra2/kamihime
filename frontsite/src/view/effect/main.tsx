@@ -4,16 +4,11 @@ import { makeStyles,Theme } from '@material-ui/core/styles'
 import MaterialTable from 'material-table';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import { Effect } from '../../state/effect/type';
 import { fetchAsyncList,fetchAsyncInsert,fetchAsyncUpdate } from '../../state/effect/operation';
-import { 
-  fetchAsyncDetailList as fetchAsyncCategoryDetailList
-} from '../../state/category/operation';
 import { useList } from '../../state/effect/selector';
 import { useList as useCategoryList } from '../../state/category/selector';
-import { useDetailList as useCategoryDetailList } from '../../state/category/selector';
+import { useList as useImpactList } from '../../state/impact/selector';
 import { AppDispatch } from '../../app/store';
 
 
@@ -36,7 +31,6 @@ export const Main = () => {
   const dispatch:AppDispatch = useDispatch()
   React.useEffect(() => {
     const promise = async () => {
-      await dispatch(fetchAsyncCategoryDetailList())
       await dispatch(fetchAsyncList())
     }
     promise();
@@ -45,21 +39,16 @@ export const Main = () => {
   const effectList = useList().map((row) => {return({...row})}) as Effect[];
 
   const categoryList = useCategoryList();
-
+  const impactList = useImpactList();
   const lookupCategoryList = categoryList.reduce((result:any,row) => {
     result[row.id] = row.name
     return result
   },{});
+  const lookupImpactList = impactList.reduce((result:any,row) => {
+    result[row.id] = row.name
+    return result
+  },{});
 
-  const categoryDetailList = useCategoryDetailList();
-  console.log(categoryDetailList)
-
-  const lookupCategoryDetailList = categoryDetailList.reduce((result:any,row) => {
-      result[row.id] = row.name
-      return result
-    },{}
-  );
-  
   const handleInsert = (effectNew:Effect) => {
     const promise = async () => {
       await dispatch(fetchAsyncInsert(effectNew));
@@ -86,29 +75,10 @@ export const Main = () => {
               { title: 'id', field: 'id', editable:'never' },
               { title: '効果名', field: 'name' },
               { title: 'カテゴリ', field: 'categoryId', 
-                lookup: lookupCategoryList,
-                editComponent: (props) => {
-                  console.log(props)
-                  return <Select value={props.rowData.categoryId} onChange={e => {props.onRowDataChange({
-                      ...props.rowData, categoryId: e.target.value as number, categoryDetailId:categoryDetailList.find((row) => row.categoryId === e.target.value as number)?.id as number
-                  })}}>
-                      {
-                        categoryList.map((row) => <MenuItem value={row.id}>{row.name}</MenuItem>)
-                      }
-                      </Select>
-                }
+                lookup: lookupCategoryList
               },
-              { title: 'カテゴリ詳細', field: 'categoryDetailId', 
-                lookup: lookupCategoryDetailList,
-                editComponent:(props) => {
-                  console.log(props)
-                  return <Select value={props.rowData.categoryDetailId} onChange={e => {props.onChange(e.target.value)}}>
-                      {
-                        categoryDetailList.filter((row) => row.categoryId === props.rowData.categoryId ).map((row) => <MenuItem value={row.id}>{row.name}</MenuItem>)
-                      }
-                      
-                    </Select>
-                } 
+              { title: '影響', field: 'impactId', 
+                lookup: lookupImpactList, 
               }
             ]}
             data={ effectList }

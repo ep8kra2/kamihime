@@ -1,6 +1,6 @@
-from src.models.category_detail import CategoryDetail
+from src.models.Impact import ImpactDetail
 
-class CategoryDetailService:
+class ImpactService:
   def check(rowData):
     return true
 

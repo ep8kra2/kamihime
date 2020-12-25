@@ -4,7 +4,7 @@ import {Hiroic,Vigorous,Pride,Rebellion} from '../../domain/type';
 import { Effect } from '../../state/effect/type';
 import { SkillEffect } from '../skill/type';
 import { EffectLevel, EffectLevelDetail } from '../effectlevel/type';
-import { CategoryDetail } from '../category/type';
+import { Impact } from '../impact/type';
 
 export type Calcurate = {
   hiroic:Hiroic,
@@ -78,10 +78,9 @@ export type CalcurateState = {
   attackNormal:AttackNormal[],
   attackBurst:AttackBurst[],
   attackAbility:AttackAbility[],
-  calcurate:Calcurate,
   effectList:Effect[],
   skillEffectList:SkillEffect[],
   effectLevelList:EffectLevel[],
   effectLevelDetailList:EffectLevelDetail[],
-  categoryDetailList:CategoryDetail[]
+  impactList:Impact[]
 }

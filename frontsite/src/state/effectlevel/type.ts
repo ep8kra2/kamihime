@@ -2,8 +2,6 @@ export type EffectLevel = {
   id: number,
   effectId: number,
   effectName: string,
-  categoryDetailId: number,
-  categoryDetailName: string,
   powerId: number,
   powerName: string,
   calcuration: string

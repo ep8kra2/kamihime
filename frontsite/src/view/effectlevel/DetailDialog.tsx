@@ -59,7 +59,7 @@ const DetailDialog = (props: DialogProps) => {
   return (
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
       <MaterialTable
-        title={effectLevel.categoryDetailName + effectLevel.effectName + effectLevel.powerName + "詳細"}
+        title={effectLevel.effectName + effectLevel.powerName + "詳細"}
         columns ={[
           { title: 'id', field: 'id', editable:'never' },
           { title: 'LEVEL', field: 'level', type: 'numeric' },

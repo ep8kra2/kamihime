@@ -1,27 +1,13 @@
 import { createSlice,PayloadAction } from '@reduxjs/toolkit';
 import { Weapon } from '../weapon/type';
 import { AttackAbility, AttackBurst, AttackNormal, CalcurateState,SelectedPhantom,SelectedWeapon } from './type';
-import { hiroic,vigorous,pride,rebellion} from '../../domain/calcurate';
 import { Phantom } from '../phantom/type';
 import { Effect } from '../effect/type';
 import { SkillEffect } from '../skill/type';
 import { EffectLevel, EffectLevelDetail } from '../effectlevel/type';
-import { CategoryDetail } from '../category/type';
-
-type EffectCul = {
-  effect:Effect,
-  elementId:number,
-  powerId:number,
-  slot:number
-}
+import { Impact } from '../impact/type';
 
 const initialCalcurateState: CalcurateState = {
-  calcurate:{
-    hiroic:hiroic,
-    vigorous:vigorous,
-    pride:pride,
-    rebellion:rebellion
-  },
   selectedWeapon:{} as SelectedWeapon,
   listWeapon:[
     {...{} as SelectedWeapon,slot:1,marks:'英霊'},
@@ -67,7 +53,7 @@ const initialCalcurateState: CalcurateState = {
   skillEffectList:[] as SkillEffect[],
   effectLevelList:[] as EffectLevel[],
   effectLevelDetailList:[] as EffectLevelDetail[],
-  categoryDetailList:[] as CategoryDetail[]
+  impactList:[] as Impact[]
 }
 
 function initialAttackList<T>(){
@@ -83,19 +69,6 @@ function initialAttackList<T>(){
   )
 }
 
-const attackCalcurate = (cal:string,slot:number,at:number,hpRate:number) => {
-  switch(cal){
-    case 'hiroic':
-      return hiroic(at,slot)
-    case 'vigorous':
-      return vigorous(at,hpRate)
-    case 'pride':
-      return pride(at,hpRate)
-    case 'rebellion':
-      return rebellion(at,hpRate)
-  }
-  return at
-}
 
 export const calcurateSlice = createSlice({
   name: 'calcurate',
@@ -130,75 +103,15 @@ export const calcurateSlice = createSlice({
       skillEffectList:SkillEffect[],
       effectLevelList:EffectLevel[],
       effectLevelDetailList:EffectLevelDetail[],
-      categoryDetailList:CategoryDetail[]
+      impactList:Impact[]
     }>) => {
       state.effectList = action.payload.effectList
       state.skillEffectList = action.payload.skillEffectList
       state.effectLevelList = action.payload.effectLevelList
       state.effectLevelDetailList = action.payload.effectLevelDetailList
-      state.categoryDetailList = action.payload.categoryDetailList
+      state.impactList = action.payload.impactList
 
       return state
-    },
-    calcurate: (state:CalcurateState,action) => {
-      const skillList = state.listWeapon.reduce((result,row) => {
-        if(row.weapon === undefined) { return result}
-        if(row.weapon.slot1SkillId !== undefined) {
-          result.push({slot:row.slot,
-            skillId:row.weapon.slot1SkillId,
-            powerId:row.weapon.slot1PowerId,
-            elementId:row.weapon.elementId, 
-            level:row.level})
-        }
-
-        if(row.weapon.slot2SkillId) {
-          result.push({slot:row.slot,
-            skillId:row.weapon.slot2SkillId,
-            powerId:row.weapon.slot2PowerId,
-            elementId:row.weapon.elementId, 
-            level:row.level})
-        }
-        return result
-      },[{slot:0 ,skillId:0,powerId:0,elementId:0,level:0}])
-
-      const skillEffectList = state.skillEffectList.map((row) => {return{...row}})
-      const effectList = state.effectList.map((row) => {return{...row}})
-      
-      const selectedSkillEffectList = (id:number) =>{
-        return skillEffectList.filter((row) => row.skillId === id)
-      };
-
-      const selectedEffectList = (id:number,elementId:number,powerId:number,slot:number) => {
-        return  {effect:effectList.find((row) => row.id === id),elementId:elementId,powerId:powerId,slot:slot} as EffectCul
-      }
-
-      const selectedeffectlist = skillList.reduce((result:EffectCul[],row) => {
-        result = result.concat(selectedSkillEffectList(row.skillId).map((rowEffect) => {
-          return selectedEffectList(rowEffect.effectId,row.elementId,row.powerId,row.slot)
-        }))
-        return result
-      },[] as EffectCul[]);
-
-      const effectLevelList = state.effectLevelList.map((row) => {return {...row}})
-      const efffectLevelDetailList = state.effectLevelDetailList.map((row) =>{return {...row}})
-
-      const effectLevel = (effectId:number,powerId:number) => effectLevelList.find((row) => row.effectId === effectId && row.powerId === powerId) as EffectLevel
-      const effectLevelDetail = (effectLevelId:number,level:number) => efffectLevelDetailList.find((row) => row.effectLevelId === effectLevelId && row.level === level) as EffectLevelDetail
-
-      const normalAttackList = initialAttackList<AttackNormal>();
-      const attackParameters = selectedeffectlist.reduce((result:AttackNormal[],row) => {
-        const attack = effectLevelDetail(effectLevel(row.effect.id,row.powerId).id,1);
-
-        (result.find((find) => row.elementId === find.elementId) as AttackNormal)
-        [
-          row.effect.name] = attackCalcurate(row.effect.calcurate,row.slot,attack.value,1)
-
-        return result
-      },normalAttackList)
-
-      console.log(selectedeffectlist)
-
-      attackCalcurate('attack',1,100,1)
     }
   }
 })

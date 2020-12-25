@@ -4,6 +4,7 @@ import effectLevelSlice from '../state/effectlevel/slice';
 import weaponSlice from '../state/weapon/slice';
 import skillSlice from '../state/skill/slice';
 import categorySlice from '../state/category/slice';
+import impactSlice from '../state/impact/slice';
 import powerSlice from '../state/power/slice';
 import pageSlice from '../state/page/slice';
 import weaponTypeSlice from '../state/weapontype/slice';
@@ -19,13 +20,14 @@ export const store = configureStore({
     effect: effectSlice.reducer,
     effectLevel: effectLevelSlice.reducer,
     category: categorySlice.reducer,
+    impact: impactSlice.reducer,
     power: powerSlice.reducer,
     weaponType: weaponTypeSlice.reducer,
     rarity: raritySlice.reducer,
     calcurate: calcurateSlice.reducer
   },
   middleware: getDefaultMiddleware({
-    serializableCheck: false
+    ...getDefaultMiddleware,serializableCheck: false
   })
 });
 

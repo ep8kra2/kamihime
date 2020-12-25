@@ -10,14 +10,14 @@ class Effect(db.Model):
   id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   name = db.Column(db.String(100))
   categoryId = db.Column(db.Integer)
-  categoryDetailId = db.Column(db.Integer)
+  impactId = db.Column(db.Integer)
   calcurate = db.Column(db.String(100))
 
   def insert(effect_new):
     effect = Effect(
       name = effect_new['name'],
       categoryId = effect_new['categoryId'],
-      categoryDetailId = effect_new['categoryDetailId'],
+      impactId = effect_new['impactId'],
       calcurate = effect_new['calcurate']
     )
 
@@ -30,7 +30,7 @@ class Effect(db.Model):
     effect = db.session.query(Effect).filter(Effect.id==effect_new['id']).first()
     effect.name = effect_new['name']
     effect.categoryId = effect_new['categoryId']
-    effect.categoryDetailId = effect_new['categoryDetailId']
+    effect.impactId = effect_new['impactId']
     effect.calcurate = effect_new['calcurate']
     db.session.add(effect)
     db.session.commit()
@@ -42,12 +42,12 @@ class Effect(db.Model):
                 a.name,
                 a.categoryId,
                 b.name as categoryName,
-                a.categoryDetailId,
-                c.name as categoryDetailName,
+                a.impactId,
+                c.name as impactName,
                 a.calcurate
               from effects a
               inner join categories b on a.categoryId = b.id
-              inner join category_details c on a.categoryDetailId = c.id
+              inner join impacts c on a.impactId = c.id
               order by a.id"""
   
     records = db.session.connection().execute(text(cmd))

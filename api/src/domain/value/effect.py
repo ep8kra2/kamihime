@@ -6,8 +6,8 @@ class EffectValue:
   name: str
   categoryId:int
   categoryName:str
-  categoryDetailId:int
-  categoryDetailName:str
+  impactId:int
+  impactName:str
   calcurate:str
 
 @dataclasses.dataclass(frozen=True)
@@ -15,8 +15,6 @@ class EffectLevelValue:
   id: int
   effectId: int
   effectName: str
-  categoryDetailId: int
-  categoryDetailName: str
   powerId: int
   powerName: str
 

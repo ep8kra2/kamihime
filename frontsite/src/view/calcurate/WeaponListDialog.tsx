@@ -42,8 +42,6 @@ export const WeaponListDialog = (props:DialogProps) => {
       return(row.id === weaponid);
     }) as Weapon
     dispatch(calcurateSlice.actions.changedWeapon({slot:slot,weapon:selectedweapon}));
-    console.log("KK")
-    dispatch(calcurateSlice.actions.calcurate(null));
     onClose();
   }
 

@@ -1,8 +1,6 @@
 import dataclasses
 
 @dataclasses.dataclass(frozen=True)
-class CategoryDetailValue:
+class ImpactValue:
   id: int
   name: str
-  categoryId:int
-  categoryName:str

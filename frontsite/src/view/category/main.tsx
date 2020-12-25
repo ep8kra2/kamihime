@@ -10,9 +10,8 @@ import {
   fetchAsyncList,
   fetchAsyncInsert,
   fetchAsyncUpdate } from '../../state/category/operation';
-import { useList,useSelected } from '../../state/category/selector';
+import { useList } from '../../state/category/selector';
 import { AppDispatch } from '../../app/store';
-import DetailDialog from './categorydetaildialog';
 
 const useStyles = makeStyles((theme:Theme) => ({
   container: {
@@ -30,7 +29,6 @@ const useStyles = makeStyles((theme:Theme) => ({
 
 export const Main = () => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
   const dispatch:AppDispatch = useDispatch()
   React.useEffect(() => {
     const promise = dispatch(fetchAsyncList())
@@ -41,8 +39,7 @@ export const Main = () => {
   }, [dispatch])
 
   const list = useList().map((row) => {return({...row})});
-  const selected = useSelected();
-
+ 
   const handleInsert = (categoryNew:Category) => {
     const promise = async () => {
       await dispatch(fetchAsyncInsert(categoryNew));
@@ -57,15 +54,6 @@ export const Main = () => {
       await dispatch(fetchAsyncList());
     }
     promise();
-  }
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleDetailAdd = (categorySelected:Category) => {
-    dispatch(categorySlice.actions.selected(categorySelected))
-    setOpen(true)
   }
 
   return (
@@ -102,19 +90,10 @@ export const Main = () => {
                   }, 1000)
                 })
             }}
-            actions={[
-              rowData => ({
-                icon: 'add',
-                tooltip: '詳細登録',
-                onClick: (event, rowData) => handleDetailAdd(rowData as Category),
-              })
-            ]}
             options={{
               actionsColumnIndex: -1
             }}
           />
-
-          <DetailDialog category={ selected } open={open} onClose={handleClose} />
         </Paper>
       </Grid>
     </Grid>

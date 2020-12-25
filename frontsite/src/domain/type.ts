@@ -1,4 +1,10 @@
-export type Hiroic = (at:number,slot:number) => number
-export type Vigorous = (at:number,hpRate:number) => number
-export type Pride = (at:number,hpRate:number) => number
-export type Rebellion = (at:number,hpRate:number) => number
+
+export type Hiroic = (at:number,parameter:CalcurateParameter) => number
+export type Vigorous = (at:number,parameter:CalcurateParameter) => number
+export type Pride = (at:number,parameter:CalcurateParameter) => number
+export type Rebellion = (at:number,parameter:CalcurateParameter) => number
+
+export type CalcurateParameter = {
+  slot:number,
+  hpRate:number,
+}

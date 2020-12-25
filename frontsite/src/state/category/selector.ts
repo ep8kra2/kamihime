@@ -9,11 +9,3 @@ export const useList = () => {
 export const useSelected = () => {
   return useSelector((state:RootState) => state.category.selected);
 }
-
-export const useDetailSelected = () => {
-  return useSelector((state:RootState) => state.category.detailSelected);
-}
-
-export const useDetailList = () => {
-  return useSelector((state:RootState) => state.category.detailList);
-}

@@ -13,8 +13,6 @@ import {
 import { useList,useSelected } from '../../state/effectlevel/selector';
 import { fetchAsyncList as fetchAsyncEffectList} from '../../state/effect/operation';
 import { useList as useEffectList} from '../../state/effect/selector';
-import { fetchAsyncDetailList as fetchAsyncCategoryDetailList} from '../../state/category/operation';
-import { useDetailList as useCategoryDetailList} from '../../state/category/selector';
 import { fetchAsyncList as fetchAsyncPowerList} from '../../state/power/operation';
 import { useList as usePowerList} from '../../state/power/selector';
 import { AppDispatch } from '../../app/store';
@@ -44,7 +42,6 @@ export const Main = () => {
       await dispatch(fetchAsyncList())
       await dispatch(fetchAsyncEffectList())
       await dispatch(fetchAsyncPowerList())
-      await dispatch(fetchAsyncCategoryDetailList())
     }
     promise();
   }, [dispatch])
@@ -53,7 +50,6 @@ export const Main = () => {
   const selected = useSelected();
   const effectList = useEffectList();
   const powerList = usePowerList();
-  const categoryDetailList = useCategoryDetailList();
 
   const lookupEffectList = effectList.reduce((result:any,row) => {
     result[row.id] = row.name
@@ -61,11 +57,6 @@ export const Main = () => {
   },{})
   
   const lookupPowerList = powerList.reduce((result:any,row) => {
-    result[row.id] = row.name
-    return result
-  },{})
-
-  const lookupCategoryDetailList = categoryDetailList.reduce((result:any,row) => {
     result[row.id] = row.name
     return result
   },{})
@@ -105,9 +96,6 @@ export const Main = () => {
               { title: 'id', field: 'id', editable:'never' },
               { title: '効果', field: 'effectId', 
                 lookup: lookupEffectList
-              },
-              { title: 'カテゴリ', field: 'categoryDetailId', 
-                lookup: lookupCategoryDetailList
               },
               { title: '威力', field: 'powerId', 
                 lookup: lookupPowerList

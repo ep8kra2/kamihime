@@ -1,6 +1,5 @@
 import axios from "axios";
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Power } from './type';
 
 const url = 'http://localhost:5000/api/power/'
 
