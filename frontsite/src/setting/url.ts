@@ -1,2 +1,2 @@
 
-export const urlApi = 'http://www.snowdish.com/api/'
+export const urlApi = 'http://localhost:5000/api/'
