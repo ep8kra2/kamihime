@@ -1,4 +1,4 @@
-from src.models.Impact import ImpactDetail
+from src.models.impact import Impact
 
 class ImpactService:
   def check(rowData):
