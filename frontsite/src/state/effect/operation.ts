@@ -1,8 +1,9 @@
 import axios from "axios";
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { Effect } from './type';
+import { urlApi } from "../../setting/url";
 
-const url = 'http://localhost:5000/api/effect/'
+const url = urlApi + 'effect/'
 
 export const fetchAsyncList = createAsyncThunk(
   'effect/list',

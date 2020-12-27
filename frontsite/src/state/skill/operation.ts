@@ -1,8 +1,9 @@
 import axios from "axios";
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { Skill,SkillEffect } from './type';
+import { urlApi } from "../../setting/url";
 
-const url = 'http://localhost:5000/api/skill/'
+const url = urlApi + 'skill/'
 
 export const fetchAsyncList = createAsyncThunk(
   'skill/List',

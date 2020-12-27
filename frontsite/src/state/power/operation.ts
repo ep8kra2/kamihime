@@ -1,7 +1,8 @@
 import axios from "axios";
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { urlApi } from "../../setting/url";
 
-const url = 'http://localhost:5000/api/power/'
+const url = urlApi + 'power/'
 
 export const fetchAsyncList = createAsyncThunk(
   'power/List',

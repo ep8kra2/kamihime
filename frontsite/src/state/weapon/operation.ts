@@ -1,8 +1,9 @@
 import axios from "axios";
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { Weapon } from './type';
+import { urlApi } from "../../setting/url";
 
-const url = 'http://localhost:5000/api/weapon/'
+const url = urlApi + 'weapon/'
 
 export const fetchAsyncList = createAsyncThunk(
   'weapon/list',

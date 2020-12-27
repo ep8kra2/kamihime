@@ -1,8 +1,9 @@
 import axios from "axios";
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { Impact } from "./type";
+import { urlApi } from "../../setting/url";
 
-const url = 'http://localhost:5000/api/impact/'
+const url = urlApi + 'impact/'
 
 export const fetchAsyncList = createAsyncThunk(
   'impact/List',

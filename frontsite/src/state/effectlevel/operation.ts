@@ -1,8 +1,9 @@
 import axios from "axios";
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { EffectLevel, EffectLevelDetail } from './type';
+import { urlApi } from "../../setting/url";
 
-const url = 'http://localhost:5000/api/effect/level/'
+const url = urlApi + '/effect/level/'
 
 export const fetchAsyncList = createAsyncThunk(
   'effectlevel/list',
