@@ -9,8 +9,6 @@ import { useSelectedPage } from './state/page/selector';
 
 const App = () => {
   const selectedPage = useSelectedPage();
-  console.log(selectedPage)
-
   switch(selectedPage.id)
   {
     case 1:

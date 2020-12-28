@@ -50,13 +50,13 @@ def update_level():
   return make_response(jsonify(res),200)
 
 @effect_router.route('/effect/level/detail/get_list', methods=['GET'])
-def get_list_level_detail_all():
+def get_list_level_detail():
   res = EffectQuery.get_list_level_detail()
   return make_response(jsonify(res),200)
 
-@effect_router.route('/effect/level/detail/get_list/<effectLevelId>/', methods=['GET'])
-def get_list_level_detail(effectLevelId):
-  res = EffectQuery.get_list_level_detail(effectLevelId)
+@effect_router.route('/effect/level/detail/selected_list/<effectLevelId>/', methods=['GET'])
+def selected_list_level_detail(effectLevelId):
+  res = EffectQuery.selected_list_level_detail(effectLevelId)
   return make_response(jsonify(res),200)
 
 @effect_router.route('/effect/level/detail/update', methods=['POST'])

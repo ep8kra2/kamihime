@@ -33,7 +33,7 @@ class EffectLevelDetail(db.Model):
 
     return 'success'
 
-  def get_list(id):
+  def selected_list(id):
     records =  db.session.query(EffectLevelDetail).filter(EffectLevelDetail.effectLevelId == id).order_by(EffectLevelDetail.level.asc()).all()
     return list(map(lambda row: EffectLevelDetailValue(**to_dict_from_sql_record(row)), records))
  

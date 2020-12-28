@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Effect } from '../../state/effect/type';
 import { fetchAsyncList,fetchAsyncInsert,fetchAsyncUpdate } from '../../state/effect/operation';
+import { fetchAsyncList as fetchAsyncCategoryList } from '../../state/category/operation';
 import { useList } from '../../state/effect/selector';
 import { useList as useCategoryList } from '../../state/category/selector';
 import { useList as useImpactList } from '../../state/impact/selector';
@@ -32,6 +33,7 @@ export const Main = () => {
   React.useEffect(() => {
     const promise = async () => {
       await dispatch(fetchAsyncList())
+      await dispatch(fetchAsyncCategoryList())
     }
     promise();
   }, [dispatch])
@@ -39,6 +41,7 @@ export const Main = () => {
   const effectList = useList().map((row) => {return({...row})}) as Effect[];
 
   const categoryList = useCategoryList();
+  console.log(categoryList)
   const impactList = useImpactList();
   const lookupCategoryList = categoryList.reduce((result:any,row) => {
     result[row.id] = row.name

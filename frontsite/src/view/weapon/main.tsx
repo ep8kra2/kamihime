@@ -93,6 +93,7 @@ export const Main = () => {
   const handleInsert = (rowData:Weapon) => {
     const promise = async () => {
       await dispatch(fetchAsyncInsert(rowData));
+      await dispatch(fetchAsyncList())
     }
     promise();
   }
@@ -100,6 +101,7 @@ export const Main = () => {
   const handleUpdate = (rowData:Weapon) => {
     const promise = async () => {
       await dispatch(fetchAsyncUpdate(rowData));
+      await dispatch(fetchAsyncList())
     }
     promise();
   }

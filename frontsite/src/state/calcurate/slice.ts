@@ -1,6 +1,6 @@
 import { createSlice,PayloadAction } from '@reduxjs/toolkit';
 import { Weapon } from '../weapon/type';
-import { AttackAbility, AttackBurst, AttackNormal, CalcurateState,SelectedPhantom,SelectedWeapon } from './type';
+import { CalcurateState,Parameter,SelectedPhantom,SelectedWeapon } from './type';
 import { Phantom } from '../phantom/type';
 import { Effect } from '../effect/type';
 import { SkillEffect } from '../skill/type';
@@ -25,50 +25,13 @@ const initialCalcurateState: CalcurateState = {
   listPhantom:[
 
   ] as SelectedPhantom[],
-  attackNormal:[
-    {...{} as AttackNormal,  elementName:'火',elementId:1},
-    {...{} as AttackNormal,  elementName:'水',elementId:2},
-    {...{} as AttackNormal,  elementName:'風',elementId:3},
-    {...{} as AttackNormal,  elementName:'雷',elementId:4},
-    {...{} as AttackNormal,  elementName:'光',elementId:5},
-    {...{} as AttackNormal,  elementName:'闇',elementId:6},
-  ] as AttackNormal[],
-  attackBurst:[
-    {...{} as AttackBurst,  elementName:'火',elementId:1},
-    {...{} as AttackBurst,  elementName:'水',elementId:2},
-    {...{} as AttackBurst,  elementName:'風',elementId:3},
-    {...{} as AttackBurst,  elementName:'雷',elementId:4},
-    {...{} as AttackBurst,  elementName:'光',elementId:5},
-    {...{} as AttackBurst,  elementName:'闇',elementId:6},
-  ] as AttackBurst[],
-  attackAbility:[
-    {...{} as AttackAbility,  elementName:'火',elementId:1},
-    {...{} as AttackAbility,  elementName:'水',elementId:2},
-    {...{} as AttackAbility,  elementName:'風',elementId:3},
-    {...{} as AttackAbility,  elementName:'雷',elementId:4},
-    {...{} as AttackAbility,  elementName:'光',elementId:5},
-    {...{} as AttackAbility,  elementName:'闇',elementId:6},
-  ] as AttackAbility[],
+  parameter:{playerRank:1,attackShinki:1,hpShinki:1,hpRate:100} as Parameter,
   effectList:[] as Effect[],
   skillEffectList:[] as SkillEffect[],
   effectLevelList:[] as EffectLevel[],
   effectLevelDetailList:[] as EffectLevelDetail[],
   impactList:[] as Impact[]
 }
-
-function initialAttackList<T>(){
-  return(
-    [
-      {...{} as T,  elementName:'火',elementId:1} as T,
-      {...{} as T,  elementName:'水',elementId:2} as T,
-      {...{} as T,  elementName:'風',elementId:3} as T,
-      {...{} as T,  elementName:'雷',elementId:4} as T,
-      {...{} as T,  elementName:'光',elementId:5} as T,
-      {...{} as T,  elementName:'闇',elementId:6} as T
-    ] as T[]
-  )
-}
-
 
 export const calcurateSlice = createSlice({
   name: 'calcurate',
@@ -97,6 +60,12 @@ export const calcurateSlice = createSlice({
     selectedPhantom: (state:CalcurateState,action:PayloadAction<number>) => {
       state.selectedPhantom = state.listPhantom.filter((row) => row.slot === action.payload)[0]
       return state
+    },
+    setParameter: (state:CalcurateState,action:PayloadAction<Parameter>) => {
+      return {
+        ...state,
+        parameter: action.payload
+      }
     },
     setParams: (state:CalcurateState,action:PayloadAction<{
       effectList:Effect[], 

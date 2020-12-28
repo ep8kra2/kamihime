@@ -1,7 +1,11 @@
 import React from 'react';
+import { useDispatch } from "react-redux";
 import { makeStyles,Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { TextField } from '@material-ui/core';
+import { useParameter } from '../../state/calcurate/selector';
+import { Parameter } from '../../state/calcurate/type';
+import calcurateSlice from '../../state/calcurate/slice';
 
 const useStyles = makeStyles((theme:Theme) => ({
   paper: {
@@ -26,6 +30,17 @@ const useStyles = makeStyles((theme:Theme) => ({
 
 export const Etc = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const parameter = useParameter() as Parameter;
+
+  const handleOnChange = (name:string,value:string) => {
+    const newParameter = {
+      ...parameter,
+      [name]:Number(value)
+    } as Parameter
+    dispatch(calcurateSlice.actions.setParameter(newParameter))
+  }
 
   return(
     <React.Fragment>
@@ -34,6 +49,8 @@ export const Etc = () => {
           label="Rank"
           type="number"
           className={classes.text}
+          value={parameter.playerRank}
+          onChange={e => handleOnChange('playerRank',e.target.value)}
           InputLabelProps={{
             shrink: true,
           }}
@@ -42,6 +59,8 @@ export const Etc = () => {
           label="神姫攻撃力"
           type="number"
           className={classes.text}
+          value={parameter.attackShinki}
+          onChange={e => handleOnChange('attackShinki',e.target.value)}
           InputLabelProps={{
             shrink: true,
           }}
@@ -50,6 +69,8 @@ export const Etc = () => {
           label="神姫HP"
           type="number"
           className={classes.text}
+          value={parameter.hpShinki}
+          onChange={e => handleOnChange('hpShinki',e.target.value)}
           InputLabelProps={{
             shrink: true,
           }}
@@ -58,6 +79,8 @@ export const Etc = () => {
           label="残HP(%)"
           type="number"
           className={classes.text}
+          value={parameter.hpRate}
+          onChange={e => handleOnChange('hpRate',e.target.value)}
           InputLabelProps={{
             shrink: true,
           }}

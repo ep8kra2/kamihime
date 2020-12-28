@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { EffectLevel, EffectLevelDetail } from './type';
 import { urlApi } from "../../setting/url";
 
-const url = urlApi + '/effect/level/'
+const url = urlApi + 'effect/level/'
 
 export const fetchAsyncList = createAsyncThunk(
   'effectlevel/list',
@@ -35,7 +35,7 @@ export const fetchAsyncUpdate = createAsyncThunk(
 export const fetchAsyncSelectedDetailList = createAsyncThunk(
   'effectlevel/detail/selectedlist',
   async(rowData:EffectLevel) => {
-    const response = await axios.get(url + `detail/get_list/${rowData.id}`);
+    const response = await axios.get(url + `detail/selected_list/${rowData.id}`);
 
     return response.data;
   }

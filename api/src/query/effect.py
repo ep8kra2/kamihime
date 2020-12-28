@@ -9,8 +9,8 @@ class EffectQuery:
   def get_list_level():
     return EffectLevel.get_list()
 
-  def get_list_level_detail(id):
-    return EffectLevelDetail.get_list(id)
+  def selected_list_level_detail(id):
+    return EffectLevelDetail.selected_list(id)
 
   def get_list_level_detail():
     return EffectLevelDetail.get_list()

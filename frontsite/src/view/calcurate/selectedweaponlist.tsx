@@ -5,24 +5,6 @@ import {useListWeapon, useSelectedWeapon } from '../../state/calcurate/selector'
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { calcurateSlice } from '../../state/calcurate/slice';
-// import { makeStyles, Theme } from '@material-ui/core/styles';
-
-/*
-const useStyles = makeStyles((theme:Theme) => ({
-  paper: {
-    padding:theme.spacing(1)
-  },
-  typography: {
-    width:'100%',
-    height:'48px',
-    color:'#FFFFFF',
-    fontSize:'0.9rem',
-    paddingTop:'14px',
-    paddingLeft:theme.spacing(2),
-    backgroundColor: '#7b1fa2'
-  }
-}));
-*/
 
 export const SelectedWeaponList = () => {
   const [open, setOpen] = React.useState(false);
@@ -56,9 +38,9 @@ export const SelectedWeaponList = () => {
           data={ weaponList.map((row) => {return {
             slot:row.slot,
             id:row.weapon?.id,
-            name:row.weapon?.name,
-            skill1:row.weapon?.slot1PowerName + row.weapon?.slot1SkillName,
-            skill2:row.weapon?.slot2PowerName + row.weapon?.slot2SkillName,
+            name: row.weapon === undefined ? '' : (row.weapon.weaponIdBeforeLimitBreak > 0 ? '☆覚醒☆' : '')  + row.weapon.name,
+            skill1:row.weapon === undefined ? '' : row.weapon.slot1PowerName + row.weapon.slot1SkillName,
+            skill2:row.weapon === undefined ? '' : row.weapon.slot2PowerName + row.weapon.slot2SkillName,
             hp:row.weapon?.maxHp,
             at:row.weapon?.maxAt,
             level:row.level,

@@ -5,8 +5,8 @@ export type Effect = {
   name:string,
   categoryId:number,
   categoryName:string,
-  categoryDetailId:number,
-  categoryDetailName:string,
+  impactId:number,
+  impactName:string,
   calcurate:string,
   cal:(x:number,y:CalcurateParameter) => number
 }

@@ -18,7 +18,6 @@ class Effect(db.Model):
       name = effect_new['name'],
       categoryId = effect_new['categoryId'],
       impactId = effect_new['impactId'],
-      calcurate = effect_new['calcurate']
     )
 
     db.session.add(effect)
@@ -31,7 +30,6 @@ class Effect(db.Model):
     effect.name = effect_new['name']
     effect.categoryId = effect_new['categoryId']
     effect.impactId = effect_new['impactId']
-    effect.calcurate = effect_new['calcurate']
     db.session.add(effect)
     db.session.commit()
 

@@ -30,7 +30,7 @@ class Weapon(db.Model):
       typeId =  rowData['typeId'],
       maxHp =  rowData['maxHp'],
       maxAt =  rowData['maxAt'],
-      weaponIdBeforeLimitBreak =  rowData['weaponIdBeforeLimitBreak'],
+      weaponIdBeforeLimitBreak =  rowData['weaponIdBeforeLimitBreak'] if 'weaponIdBeforeLimitBreak' in rowData else 0
     )
     db.session.add(record)
     db.session.commit()

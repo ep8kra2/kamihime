@@ -1,8 +1,9 @@
 import axios from "axios";
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { Category } from './type';
+import { urlApi } from "../../setting/url";
 
-const url = 'http://localhost:5000/api/category/'
+const url = urlApi + 'category/'
 
 export const fetchAsyncList = createAsyncThunk(
   'category/get_list',

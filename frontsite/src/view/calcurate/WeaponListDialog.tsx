@@ -26,7 +26,7 @@ export const WeaponListDialog = (props:DialogProps) => {
     return(
       {
         id:weapon.id,
-        name:weapon.name,
+        name:(weapon.weaponIdBeforeLimitBreak > 0 ? '☆覚醒☆' : '') + weapon.name,
         elementName:weapon.elementName,
         rarityName:weapon.rarityName,
         skill1:weapon.slot1PowerName + weapon.slot1SkillName,
