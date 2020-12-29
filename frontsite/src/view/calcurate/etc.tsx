@@ -84,6 +84,7 @@ export const Etc = () => {
           <Input 
             className={classes.selectEmpty}
             id="inputHpShinki" 
+            type="number"
             value={parameter.hpShinki}
             onChange={e => handleOnChange('hpShinki',e.target.value)}  
           />
@@ -92,7 +93,8 @@ export const Etc = () => {
           <InputLabel shrink id="labelHpRate">残HP(%)</InputLabel>
           <Input 
             className={classes.selectEmpty}
-            id="inputHpRate" 
+            id="inputHpRate"
+            type="number" 
             value={parameter.hpRate}
             onChange={e => handleOnChange('hpRate',e.target.value)}  
           />
@@ -101,8 +103,9 @@ export const Etc = () => {
           <InputLabel shrink id="labelEnemyDefence">敵防御値</InputLabel>
           <Input 
             className={classes.selectEmpty}
-            id="inputEnemyDefence" 
-            value={parameter.hpRate}
+            id="inputEnemyDefence"
+            type="number" 
+            value={parameter.enemyDefence}
             onChange={e => handleOnChange('enemyDefence',e.target.value)}  
           />
         </FormControl>

@@ -144,7 +144,7 @@ export const useAttackNormal = () => {
             vigorous:result[0].vigorous +(row.effect.name === 'ヴィゴラス' && row.elementId === 1? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             rebellion:result[0].rebellion +(row.effect.name === 'リベリオン' && row.elementId === 1? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             special:result[0].special +(row.effect.name === '特殊' && row.elementId === 1 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
-            technica:result[0].technica +(row.effect.name === 'テクニカ' && row.elementId === 1? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
+            technica:result[0].technica +(row.effect.name === 'テクニカ性能UP' && row.elementId === 1? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             elementName:'火',
             elementId:1 
           },
@@ -154,7 +154,7 @@ export const useAttackNormal = () => {
             vigorous:result[1].vigorous +(row.effect.name === 'ヴィゴラス' && row.elementId === 2? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             rebellion:result[1].rebellion +(row.effect.name === 'リベリオン' && row.elementId === 2? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             special:result[1].special +(row.effect.name === '特殊' && row.elementId === 2 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
-            technica:result[1].technica +(row.effect.name === 'テクニカ' && row.elementId === 2? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
+            technica:result[1].technica +(row.effect.name === 'テクニカ性能UP' && row.elementId === 2? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             elementName:'水',
             elementId:2
           },
@@ -164,7 +164,7 @@ export const useAttackNormal = () => {
             vigorous:result[2].vigorous +(row.effect.name === 'ヴィゴラス' && row.elementId === 3 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             rebellion:result[2].rebellion +(row.effect.name === 'リベリオン' && row.elementId === 3 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             special:result[2].special +(row.effect.name === '特殊' && row.elementId === 3 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
-            technica:result[2].technica +(row.effect.name === 'テクニカ' && row.elementId === 3 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
+            technica:result[2].technica +(row.effect.name === 'テクニカ性能UP' && row.elementId === 3 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             elementName:'風',
             elementId:3
           },
@@ -174,7 +174,7 @@ export const useAttackNormal = () => {
             vigorous:result[3].vigorous +(row.effect.name === 'ヴィゴラス' && row.elementId === 4 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             rebellion:result[3].rebellion +(row.effect.name === 'リベリオン' && row.elementId === 4 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             special:result[3].special +(row.effect.name === '特殊' && row.elementId === 4 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
-            technica:result[3].technica +(row.effect.name === 'テクニカ' && row.elementId === 4 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
+            technica:result[3].technica +(row.effect.name === 'テクニカ性能UP' && row.elementId === 4 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             elementName:'雷',
             elementId:4
           },
@@ -184,7 +184,7 @@ export const useAttackNormal = () => {
             vigorous:result[4].vigorous +(row.effect.name === 'ヴィゴラス' && row.elementId === 5 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             rebellion:result[4].rebellion +(row.effect.name === 'リベリオン' && row.elementId === 5 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             special:result[4].special +(row.effect.name === '特殊' && row.elementId === 5 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
-            technica:result[4].technica +(row.effect.name === 'テクニカ' && row.elementId === 5 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
+            technica:result[4].technica +(row.effect.name === 'テクニカ性能UP' && row.elementId === 5 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             elementName:'光',
             elementId:5 
           },
@@ -194,7 +194,7 @@ export const useAttackNormal = () => {
             vigorous:result[5].vigorous +(row.effect.name === 'ヴィゴラス' && row.elementId === 6 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             rebellion:result[5].rebellion +(row.effect.name === 'リベリオン' && row.elementId === 6 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             special:result[5].special +(row.effect.name === '特殊' && row.elementId === 6 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
-            technica:result[5].technica +(row.effect.name === 'テクニカ' && row.elementId === 6 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
+            technica:result[5].technica +(row.effect.name === 'テクニカ性能UP' && row.elementId === 6 ? attackCalcurate(row.effect.calcurate,row.slot,row.attack.value,useParameter.hpRate) : 0),
             elementName:'闇',
             elementId:6
           }
