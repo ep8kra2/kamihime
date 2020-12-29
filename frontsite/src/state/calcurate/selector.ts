@@ -109,6 +109,7 @@ export const useAttackNormal = () => {
   const getAttack = (effectList:SelectedEffectList[]) => {
     return effectList.map((row) => {
       const attack = useEfffectLevelDetailList.find((filterDetail) => {
+        if(row === undefined || row.effect === undefined){ return false}
         const res = useEffectLevelList.find((filter) => filter.powerId === row.powerId && filter.effectId === row.effect.id);
         if(res === undefined) { return false }
         return (res.id === filterDetail.effectLevelId && row.level === filterDetail.level)
@@ -226,7 +227,7 @@ export const useAttackNormal = () => {
     return res.map((row) => {
       return {
         ...row,
-        attack:row.attack + useParameter.attackShinki
+        attack:row.attack + (row.elementId === useParameter.elementShinki? useParameter.attackShinki : 0)
       }})
   }
   

@@ -46,7 +46,7 @@ export const WeaponListDialog = (props:DialogProps) => {
   }
 
   const handleDelete = () => {
-//    dispatch(weaponSlice.actions.delselectedlist(changetarget.slot));
+    dispatch(calcurateSlice.actions.deleteWeapon(slot));
     onClose();
   }
 

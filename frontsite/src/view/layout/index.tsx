@@ -65,6 +65,7 @@ const useStyles = makeStyles((theme:Theme) => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    backgroundColor:"#6a1b9a",
     marginRight: theme.spacing(0),
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -87,6 +88,7 @@ const useStyles = makeStyles((theme:Theme) => ({
   },
   title: {
     flexGrow: 1,
+    backgroundClolor:"#4a148c"
   },
   drawerPaper: {
     position: 'relative',

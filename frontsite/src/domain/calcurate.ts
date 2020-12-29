@@ -1,7 +1,6 @@
 import {Hiroic,Vigorous,Pride,Rebellion, CalcurateParameter} from './type';
 
 export const hiroic:Hiroic = (at:number,parameter:CalcurateParameter) => {
-  console.log(at)
   return parameter.slot === 1? at:0
 }
 

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme:Theme) => ({
     padding:theme.spacing(0)
   },
   appbar: {
-    backgroundColor:'#7b1fa2',
+    backgroundColor:'#8e24aa',
     padding: theme.spacing(0),
     minHeight:'36px'
     

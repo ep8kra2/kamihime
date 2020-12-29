@@ -29,9 +29,11 @@ export type SelectedPhantom = {
 
 export type Parameter = {
   playerRank:number,
+  elementShinki:number,
   attackShinki:number,
   hpShinki:number,
-  hpRate:number
+  hpRate:number,
+  enemyDefence:number
 }
 
 export type AttackNormal = {

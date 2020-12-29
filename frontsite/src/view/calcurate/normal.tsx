@@ -16,14 +16,14 @@ export const Normal = () => {
       title="通常攻撃"
       columns ={[
         { title: '属性', field:'elementName'},
-        { title: '最終威力', field: 'result',render: (rowData) => {return resultValue(rowData).toFixed(0) }},
-        { title: '攻撃', field: 'attack' },
-        { title: 'ｱｻﾙﾄ', field: 'assault'},
-        { title: '属性', field: 'element'},
-        { title: 'ｳﾞｨｺﾞﾗｽ', field: 'vigorous'},
-        { title: 'ﾘﾍﾞﾘｵﾝ', field: 'rebellion'},
-        { title: '特殊', field: 'special'},
-        { title: 'ﾃｸﾆｶ', field: 'technica'}
+        { title: '総合', field: 'result',render: (rowData) => {return resultValue(rowData).toFixed(0) }},
+        { title: '攻撃', field: 'attack' ,render:(rowData) => {return rowData.attack.toFixed(2)}},
+        { title: 'ｱｻﾙﾄ', field: 'assault',render:(rowData) => {return rowData.assault.toFixed(2)}},
+        { title: '属性', field: 'element',render:(rowData) => {return rowData.element.toFixed(2)}},
+        { title: 'ｳﾞｨｺﾞﾗｽ', field: 'vigorous',render:(rowData) => {return rowData.vigorous.toFixed(2)}},
+        { title: 'ﾘﾍﾞﾘｵﾝ', field: 'rebellion',render:(rowData) => {return rowData.rebellion.toFixed(2)}},
+        { title: '特殊', field: 'special',render:(rowData) => {return rowData.special.toFixed(2)}},
+        { title: 'ﾃｸﾆｶ', field: 'technica',render:(rowData) => {return rowData.technica.toFixed(2)}}
       ]}
       data={ attackNormal.map((row) => {return {...row}}) }
       options={{        

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme:Theme) => ({
     fontSize:'0.9rem',
     paddingTop:'14px',
     paddingLeft:theme.spacing(2),
-    backgroundColor: '#7b1fa2'
+    backgroundColor: '#8e24aa'
   }
 }));
 

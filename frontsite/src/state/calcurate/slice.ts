@@ -25,7 +25,7 @@ const initialCalcurateState: CalcurateState = {
   listPhantom:[
 
   ] as SelectedPhantom[],
-  parameter:{playerRank:1,attackShinki:1,hpShinki:1,hpRate:100} as Parameter,
+  parameter:{playerRank:1,elementShinki:1,attackShinki:1,hpShinki:1,hpRate:100,enemyDefence:10} as Parameter,
   effectList:[] as Effect[],
   skillEffectList:[] as SkillEffect[],
   effectLevelList:[] as EffectLevel[],
@@ -47,6 +47,10 @@ export const calcurateSlice = createSlice({
     },
     selectedWeapon: (state:CalcurateState,action:PayloadAction<number>) => {
       state.selectedWeapon = state.listWeapon.filter((row) => row.slot === action.payload)[0]
+      return state
+    },
+    deleteWeapon: (state:CalcurateState, action:PayloadAction<number>) => {
+      state.listWeapon[action.payload - 1] = {...{} as SelectedWeapon,slot:action.payload,marks:state.listWeapon[action.payload - 1].marks}
       return state
     },
     changedPhantom: (state:CalcurateState,action:PayloadAction<{slot:number,phantom:Phantom}>) => {
