@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import { hiroic,vigorous,pride,rebellion} from '../../domain/calcurate';
+import { CalcurateParameter } from '../../domain/type';
 import { Effect } from '../effect/type';
 import { EffectLevelDetail } from '../effectlevel/type';
 import { SkillEffect } from '../skill/type';
@@ -27,13 +28,13 @@ type SelectedEffectList = {
 const attackCalcurate = (cal:string,slot:number,at:number,hpRate:number) => {
   switch(cal){
     case 'hiroic':
-      return hiroic(at,{slot:slot,hpRate:hpRate})
+      return hiroic(at,{...{} as CalcurateParameter, slot:slot})
     case 'vigorous':
-      return vigorous(at,{slot:slot,hpRate:hpRate})
+      return vigorous(at,{...{} as CalcurateParameter, hpRate:hpRate})
     case 'pride':
-      return pride(at,{slot:slot,hpRate:hpRate})
+      return pride(at,{...{} as CalcurateParameter,hpRate:hpRate})
     case 'rebellion':
-      return rebellion(at,{slot:slot,hpRate:hpRate})
+      return rebellion(at,{...{} as CalcurateParameter,hpRate:hpRate})
   }
   return at
 }
