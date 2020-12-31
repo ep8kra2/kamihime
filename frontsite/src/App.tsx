@@ -1,9 +1,9 @@
 import React from 'react';
-import * as Calcurate from './view/calcurate/index';
+import * as Calcurate from './view/calculate/index';
 import * as Weapon from './view/weapon/index';
 import * as Skill from './view/skill/index';
 import * as Effect from './view/effect/index';
-import * as EffectLevel from './view/effectlevel/index';
+import * as Calculation from './view/calculation/index';
 import * as Category from './view/category/index';
 import { useSelectedPage } from './state/page/selector';
 
@@ -20,7 +20,7 @@ const App = () => {
     case 4:
       return <Effect.Index />
     case 5:
-      return <EffectLevel.Index />
+      return <Calculation.Index />
     case 6:
       return <Category.Index />
   };

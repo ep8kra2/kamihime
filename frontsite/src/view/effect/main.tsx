@@ -95,7 +95,6 @@ export const Main = () => {
                 }),
               onRowUpdate: (newData, oldData) => 
                 new Promise((resolve, reject) => {
-                  console.log("OK")
                   setTimeout(() => {
                     const dataUpdate = [...effectList];
                     if(oldData === undefined){

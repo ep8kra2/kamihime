@@ -4,20 +4,18 @@ import { makeStyles,Theme } from '@material-ui/core/styles'
 import MaterialTable from 'material-table';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { EffectLevel } from '../../state/effectlevel/type';
 import { 
   fetchAsyncList,
   fetchAsyncInsert,
   fetchAsyncUpdate 
-} from '../../state/effectlevel/operation';
-import { useList,useSelected } from '../../state/effectlevel/selector';
+} from '../../state/calculation/operation';
+import { useList } from '../../state/calculation/selector';
 import { fetchAsyncList as fetchAsyncEffectList} from '../../state/effect/operation';
 import { useList as useEffectList} from '../../state/effect/selector';
 import { fetchAsyncList as fetchAsyncPowerList} from '../../state/power/operation';
 import { useList as usePowerList} from '../../state/power/selector';
-import { AppDispatch } from '../../app/store';
-import DetailDialog from './DetailDialog';
-import effectLevelSlice from '../../state/effectlevel/slice';
+import calculationSlice from '../../state/calculation/slice';
+import { Calculation } from '../../state/calculation/type';
 
 const useStyles = makeStyles((theme:Theme) => ({
   container: {
@@ -35,8 +33,7 @@ const useStyles = makeStyles((theme:Theme) => ({
 
 export const Main = () => {
   const classes = useStyles();  
-  const [open, setOpen] = React.useState(false);
-  const dispatch:AppDispatch = useDispatch()
+  const dispatch = useDispatch()
   React.useEffect(() => {
     const promise = async () => {
       await dispatch(fetchAsyncList())
@@ -46,8 +43,7 @@ export const Main = () => {
     promise();
   }, [dispatch])
 
-  const effectLevelList = useList().map((row) => {return {...row}});
-  const selected = useSelected();
+  const calcurateList = useList().map((row) => {return {...row}});
   const effectList = useEffectList();
   const powerList = usePowerList();
 
@@ -61,7 +57,7 @@ export const Main = () => {
     return result
   },{})
 
-  const handleInsert = (rowData:EffectLevel) => {
+  const handleInsert = (rowData:Calculation) => {
     const promise = async () => {
       await dispatch(fetchAsyncInsert(rowData));
       await dispatch(fetchAsyncList());
@@ -69,7 +65,7 @@ export const Main = () => {
     promise();
   }
 
-  const handleUpdate = (rowData:EffectLevel) => {
+  const handleUpdate = (rowData:Calculation) => {
     const promise = async () => {
       await dispatch(fetchAsyncUpdate(rowData));
       await dispatch(fetchAsyncList());
@@ -77,31 +73,22 @@ export const Main = () => {
     promise();
   }
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleDetailAdd = (selected:EffectLevel) => {
-    dispatch(effectLevelSlice.actions.selected(selected))
-    setOpen(true)
-  }
-
   return (
     <Grid container className={classes.container}>
       <Grid item xs={12} md={12} lg={12}>
         <Paper className={classes.paper}>
           <MaterialTable
-            title="効果一覧"
+            title="計算式一覧 *そのうち即時反映出来るよう作り変えます"
             columns ={[
               { title: 'id', field: 'id', editable:'never' },
-              { title: '効果', field: 'effectId', 
-                lookup: lookupEffectList
-              },
-              { title: '威力', field: 'powerId', 
-                lookup: lookupPowerList
-              }
+              { title: '計算名', field: 'name'},
+              { title: '効果', field: 'effectId', lookup: lookupEffectList },
+              { title: '威力', field: 'powerId', lookup: lookupPowerList },
+              { title: '式名', field : 'expressionName' },
+              { title: '式'  ,field: 'expression'},
+              { title: '備考'  ,field: 'marks'},
             ]}
-            data={ effectLevelList }
+            data={ calcurateList }
             editable={{
               onRowAdd: newData =>
                 new Promise((resolve, reject) => {
@@ -113,7 +100,7 @@ export const Main = () => {
               onRowUpdate: (newData, oldData) => 
                 new Promise((resolve, reject) => {
                   setTimeout(() => {
-                    const dataUpdate = [...effectLevelList];
+                    const dataUpdate = [...calcurateList];
                     if(oldData === undefined){
                       reject();
                     }else{
@@ -125,18 +112,10 @@ export const Main = () => {
                   }, 1000)
                 })
             }}
-            actions={[
-              rowData => ({
-                icon: 'add',
-                tooltip: '詳細登録',
-                onClick: (event, rowData) => handleDetailAdd(rowData as EffectLevel),
-              })
-            ]}
             options={{
               actionsColumnIndex: -1
             }}
           />
-          <DetailDialog effectLevel={ selected } open={open} onClose={handleClose} />
         </Paper>
       </Grid>
     </Grid>

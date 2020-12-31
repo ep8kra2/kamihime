@@ -2,10 +2,6 @@ import { createSlice,PayloadAction } from '@reduxjs/toolkit';
 import { Weapon } from '../weapon/type';
 import { CalcurateState,Parameter,SelectedPhantom,SelectedWeapon } from './type';
 import { Phantom } from '../phantom/type';
-import { Effect } from '../effect/type';
-import { SkillEffect } from '../skill/type';
-import { EffectLevel, EffectLevelDetail } from '../effectlevel/type';
-import { Impact } from '../impact/type';
 
 const initialCalcurateState: CalcurateState = {
   selectedWeapon:{} as SelectedWeapon,
@@ -25,12 +21,7 @@ const initialCalcurateState: CalcurateState = {
   listPhantom:[
 
   ] as SelectedPhantom[],
-  parameter:{playerRank:1,elementShinki:1,attackShinki:1,hpShinki:1,hpRate:100,enemyDefence:10} as Parameter,
-  effectList:[] as Effect[],
-  skillEffectList:[] as SkillEffect[],
-  effectLevelList:[] as EffectLevel[],
-  effectLevelDetailList:[] as EffectLevelDetail[],
-  impactList:[] as Impact[]
+  parameter:{playerRank:1,elementShinki:1,attackShinki:1,hpShinki:1,hpRate:100,enemyDefence:10,debufferDefence:0} as Parameter
 }
 
 export const calcurateSlice = createSlice({
@@ -70,21 +61,6 @@ export const calcurateSlice = createSlice({
         ...state,
         parameter: action.payload
       }
-    },
-    setParams: (state:CalcurateState,action:PayloadAction<{
-      effectList:Effect[], 
-      skillEffectList:SkillEffect[],
-      effectLevelList:EffectLevel[],
-      effectLevelDetailList:EffectLevelDetail[],
-      impactList:Impact[]
-    }>) => {
-      state.effectList = action.payload.effectList
-      state.skillEffectList = action.payload.skillEffectList
-      state.effectLevelList = action.payload.effectLevelList
-      state.effectLevelDetailList = action.payload.effectLevelDetailList
-      state.impactList = action.payload.impactList
-
-      return state
     }
   }
 })

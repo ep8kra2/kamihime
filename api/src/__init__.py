@@ -7,6 +7,7 @@ from .views.power import power_router
 from .views.weapon_type import weapon_type_router
 from .views.rarity import rarity_router
 from .views.impact import impact_router
+from .views.calculation import calculation_router
 from flask_cors import CORS
 from src.database import db
 import config
@@ -30,6 +31,7 @@ def create_app():
   app.register_blueprint(weapon_type_router,url_prefix='/api')
   app.register_blueprint(impact_router,url_prefix='/api')
   app.register_blueprint(rarity_router,url_prefix='/api')
+  app.register_blueprint(calculation_router,url_prefix='/api')
   return app
 
 app = create_app()

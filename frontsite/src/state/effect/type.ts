@@ -1,4 +1,3 @@
-import { CalcurateParameter } from "../../domain/type"
 
 export type Effect = {
   id:number,
@@ -7,8 +6,7 @@ export type Effect = {
   categoryName:string,
   impactId:number,
   impactName:string,
-  calcurate:string,
-  cal:(x:number,y:CalcurateParameter) => number
+  calcurate:string
 }
 
 export type EffectPower = {

@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import MaterialTable from 'material-table';
 import { useList as useWeaponList } from '../../state/weapon/selector';
 import { Weapon } from '../../state/weapon/type';
-import calcurateSlice from '../../state/calcurate/slice';
+import calcurateSlice from '../../state/calculate/slice';
 
 type DialogProps = {
   open:boolean,
@@ -22,7 +22,6 @@ export const WeaponListDialog = (props:DialogProps) => {
   const weaponList = useWeaponList();
 
   const displayWeaponList = weaponList.map((weapon:Weapon) => {
-    console.log(weapon)
     return(
       {
         id:weapon.id,

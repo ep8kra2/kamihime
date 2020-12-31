@@ -4,3 +4,7 @@ import dataclasses
 class ImpactValue:
   id: int
   name: str
+  categoryId: int
+  categoryName: str
+  impactTypeId: int
+  impactTypeName: str

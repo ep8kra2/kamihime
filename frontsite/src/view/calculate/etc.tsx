@@ -2,9 +2,9 @@ import React from 'react';
 import { useDispatch } from "react-redux";
 import { makeStyles,Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import { useParameter } from '../../state/calcurate/selector';
-import { Parameter } from '../../state/calcurate/type';
-import calcurateSlice from '../../state/calcurate/slice';
+import { useParameter } from '../../state/calculate/selector';
+import { Parameter } from '../../state/calculate/type';
+import calcurateSlice from '../../state/calculate/slice';
 import { elementList } from '../../state/element/paramenter';
 import Select from '@material-ui/core/Select/Select';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
@@ -107,6 +107,16 @@ export const Etc = () => {
             type="number" 
             value={parameter.enemyDefence}
             onChange={e => handleOnChange('enemyDefence',e.target.value)}  
+          />
+        </FormControl>
+        <FormControl className={classes.formControl}>
+          <InputLabel shrink id="labelDebuf">防御デバフ値</InputLabel>
+          <Input 
+            className={classes.selectEmpty}
+            id="inputDebuf"
+            type="number" 
+            value={parameter.debufferDefence}
+            onChange={e => handleOnChange('debufferDefence',e.target.value)}  
           />
         </FormControl>
       </Paper>

@@ -1,10 +1,10 @@
 import React from 'react';
 import MaterialTable from 'material-table';
 import WeaponListDialog from './WeaponListDialog';
-import {useListWeapon, useSelectedWeapon } from '../../state/calcurate/selector';
+import {useListWeapon, useSelectedWeapon } from '../../state/calculate/selector';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
-import { calcurateSlice } from '../../state/calcurate/slice';
+import { calcurateSlice } from '../../state/calculate/slice';
 
 export const SelectedWeaponList = () => {
   const [open, setOpen] = React.useState(false);

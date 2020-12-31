@@ -50,7 +50,6 @@ export const fetchAsyncSelectedListEffect = createAsyncThunk(
 export const fetchAsyncInsertEffect = createAsyncThunk(
   'skill/effect/insert',
   async (rowData:SkillEffect) => {
-    console.log(rowData)
     const response = await axios.post(url + 'effect/insert',rowData);
 
     return response.data

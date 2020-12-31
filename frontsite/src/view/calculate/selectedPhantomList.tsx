@@ -1,10 +1,10 @@
 import React from 'react';
 import MaterialTable from 'material-table';
 import PhantomListDialog from './WeaponListDialog';
-import {useListPhantom, useSelectedPhantom } from '../../state/calcurate/selector';
+import {useListPhantom, useSelectedPhantom } from '../../state/calculate/selector';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
-import { calcurateSlice } from '../../state/calcurate/slice';
+import { calcurateSlice } from '../../state/calculate/slice';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme:Theme) => ({

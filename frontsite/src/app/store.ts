@@ -9,7 +9,8 @@ import powerSlice from '../state/power/slice';
 import pageSlice from '../state/page/slice';
 import weaponTypeSlice from '../state/weapontype/slice';
 import raritySlice from '../state/rarity/slice';
-import calcurateSlice from '../state/calcurate/slice';
+import calcurateSlice from '../state/calculate/slice';
+import calculationSlice from '../state/calculation/slice';
 
 export const store = configureStore({
 
@@ -24,7 +25,8 @@ export const store = configureStore({
     power: powerSlice.reducer,
     weaponType: weaponTypeSlice.reducer,
     rarity: raritySlice.reducer,
-    calcurate: calcurateSlice.reducer
+    calcurate: calcurateSlice.reducer,
+    calculation: calculationSlice.reducer
   },
   middleware: getDefaultMiddleware({
     ...getDefaultMiddleware,serializableCheck: false

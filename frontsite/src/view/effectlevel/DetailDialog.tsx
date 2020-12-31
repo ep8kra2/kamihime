@@ -46,7 +46,6 @@ const DetailDialog = (props: DialogProps) => {
 
   const handleUpdate = (rowData:EffectLevelDetail) => {
     const promise = async () => {
-      console.log(rowData)
       await dispatch(fetchAsyncDetailUpdate(rowData))
       await dispatch(fetchAsyncSelectedDetailList(effectLevel))
     }
@@ -54,7 +53,6 @@ const DetailDialog = (props: DialogProps) => {
   }
 
   const rowData = useSelectedDetailList();
-  console.log(rowData)
 
   return (
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
