@@ -4,6 +4,7 @@ import {CalculateParameter} from './type';
 import {Element} from '../../state/element/type';
 import { Impact } from '../../state/impact/type';
 import { resultExpression } from '../expression/service';
+import { getPhantomAt } from '../phantom/service';
 
 export const setAttackData = (selectedEffectList:SelectedEffect[],culculationList:Calculation[],parameter:Parameter, weaponList:SelectedWeapon[],phantomList:SelectedPhantom[]):SelectedEffect[] => {
   return selectedEffectList.map((row) => {
@@ -12,7 +13,8 @@ export const setAttackData = (selectedEffectList:SelectedEffect[],culculationLis
       hpRate:parameter.hpRate,
       skillLevel:row.level,
       weaponList:weaponList,
-      phantomList:phantomList
+      phantomList:phantomList,
+      elementId:row.elementId
     } as CalculateParameter
     const culculation = culculationList.find((line) => line.effectId === row.effect.id && line.powerId === row.powerId)
     if(culculation === undefined){ return row};
@@ -42,13 +44,14 @@ const getInitAttackList = (initAttack:Attack,parameter:Parameter,elementList:Ele
       ...initAttack,
       elementId:row.id,
       elementName:row.name,
-      attack:row.id === parameter.elementShinki? parameter.attackShinki : 0
+      attack:row.id === parameter.elementId? parameter.attack : 0
     } as Attack
   })
 }
 
-const updateAttackListFromWeaponList = (initAttackList:Attack[],weaponList:SelectedWeapon[]):Attack[] => {
-  return initAttackList.map((row) => {
+// 選択武器リストから攻撃力を反映します
+const updateAttackListFromWeaponList = (attackList:Attack[],weaponList:SelectedWeapon[],parameter:Parameter):Attack[] => {
+  return attackList.map((row) => {
     if(weaponList === undefined){ return row}
     return{
       ...row,
@@ -56,7 +59,26 @@ const updateAttackListFromWeaponList = (initAttackList:Attack[],weaponList:Selec
         if(line.weapon === undefined){ return false}
         return line.weapon.elementId === row.elementId
       }).reduce((result,line2) => {
-        result += line2.weapon.maxAt
+        const power = (line2.weapon.typeId === parameter.goodAtWeapon1 || line2.weapon.typeId === parameter.goodAtWeapon2)? 1.2 : 1
+        result += line2.weapon.maxAt * power
+        return result
+      },0)
+    }
+  })
+}
+
+// 幻獣選択リストから攻撃力を反映します
+const updateAttackListFromPhantomList = (attackList:Attack[],phantomList:SelectedPhantom[],parameter:Parameter):Attack[] => {
+  return attackList.map((row) => {
+    if(phantomList === undefined){ return row}
+    return{
+      ...row,
+      attack: row.attack + phantomList.filter((line) => {
+        if(line.phantom === undefined){ return false}
+        return true
+      }).reduce((result,line2) => {
+        const power = (row.elementId === parameter.elementId && line2.phantom.elementId === parameter.elementId)? 1.1 : 1
+        result += getPhantomAt(line2.phantom,line2.level) * power
         return result
       },0)
     }
@@ -88,9 +110,9 @@ export const resultNormalAttackList = (parameter:Parameter, effectList:SelectedE
 
   // 影響値をセット
   const attackList = getInitAttackList(initAttackNormal,parameter,elementList,impactList)
-  const attackListWithWeaponStatus = updateAttackListFromWeaponList(attackList,weaponList)
-  console.log(phantomList)
-  return resultAttackFromSelectedWeaponList(attackListWithWeaponStatus,effectNormalList)
+  const attackListWithWeapon = updateAttackListFromWeaponList(attackList,weaponList,parameter)
+  const attackListWithWeaponAndPhantom = updateAttackListFromPhantomList(attackListWithWeapon,phantomList,parameter)
+  return resultAttackFromSelectedWeaponList(attackListWithWeaponAndPhantom,effectNormalList)
 }
 
 // バースト攻撃リストを返します
@@ -106,7 +128,7 @@ export const resultBarstAttackList = (parameter:Parameter, effectList:SelectedEf
 
   // 影響値をセット
   const attackList = getInitAttackList(initBarstNormal,parameter,elementList,impactList)
-  const attackListWithWeaponStatus = updateAttackListFromWeaponList(attackList,weaponList)
+  const attackListWithWeaponStatus = updateAttackListFromWeaponList(attackList,weaponList,parameter)
   console.log(phantomList)
   return resultAttackFromSelectedWeaponList(attackListWithWeaponStatus,effectBarstList)
 }

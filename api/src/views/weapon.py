@@ -1,5 +1,5 @@
 from flask import Blueprint, request, make_response, jsonify
-from src.models.weapon import WeaponList,Weapon
+from src.model.weapon import WeaponList,Weapon
 from src.command.weapon import WeaponCommand
 from src.query.weapon import WeaponQuery
 from src.database import db

@@ -1,4 +1,4 @@
-from src.models.category import Category
+from src.model.category import Category
 
 class CategoryQuery:
   def get_list():

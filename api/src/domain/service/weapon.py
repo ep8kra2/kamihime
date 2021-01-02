@@ -1,4 +1,3 @@
-from src.models.weapon import Weapon
 
 class WeaponService:
   def insert(rowData,insert):

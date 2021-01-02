@@ -1,5 +1,5 @@
-from src.models.skill import Skill
-from src.models.skill_effect import SkillEffect
+from src.model.skill import Skill
+from src.model.skill_effect import SkillEffect
 from src.domain.service.skill import SkillService
 
 class SkillCommand:

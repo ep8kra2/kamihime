@@ -1,4 +1,3 @@
-from src.models.impact import Impact
 
 class ImpactService:
   def check(rowData):

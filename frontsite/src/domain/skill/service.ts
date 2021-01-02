@@ -1,4 +1,4 @@
-import { SelectedSkill, SelectedWeapon } from "../../state/calculate/type"
+import { SelectedPhantom, SelectedSkill, SelectedWeapon } from "../../state/calculate/type"
 
 // 選択した武器一覧からスキル一覧を取得します
 export const getSkillListFromSelectedWeaponList = (selectedWeaponList:SelectedWeapon[]):SelectedSkill[] => {
@@ -22,4 +22,36 @@ export const getSkillListFromSelectedWeaponList = (selectedWeaponList:SelectedWe
 
     return result
   },[] as SelectedSkill[] )
+}
+
+export const getPhantomMainSkillListFromPhantomList = (selectedPhantomList:SelectedPhantom[]):SelectedSkill[] => {
+  return selectedPhantomList.filter((fil) => fil.slot === 1 || fil.slot === 2 ).reduce((result,row) => {
+    if(row.phantom === undefined) { return result}
+    if(row.phantom.mainSkillId !== undefined) {
+      result.push({slot:row.slot,
+        skillId:row.phantom.mainSkillId,
+        powerId:1,
+        elementId:row.phantom.elementId, 
+        level:row.rank})
+    }
+
+    return result
+  },[] as SelectedSkill[] )
+
+}
+
+export const getPhantomSubSkillListFromPhantomList = (selectedPhantomList:SelectedPhantom[]):SelectedSkill[] => {
+  return selectedPhantomList.filter((fil) => fil.slot >= 3 ).reduce((result,row) => {
+    if(row.phantom === undefined) { return result}
+    if(row.phantom.subSkillId !== undefined) {
+      result.push({slot:row.slot,
+        skillId:row.phantom.subSkillId,
+        powerId:1,
+        elementId:row.phantom.elementId, 
+        level:row.rank})
+    }
+
+    return result
+  },[] as SelectedSkill[] )
+
 }

@@ -1,5 +1,5 @@
-from src.models.skill import Skill
-from src.models.skill_effect import SkillEffect
+from src.querymodel.skill import Skill
+from src.model.skill_effect import SkillEffect
 
 class SkillQuery:
   def get_list():

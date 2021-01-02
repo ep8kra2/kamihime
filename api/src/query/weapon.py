@@ -1,5 +1,5 @@
-from src.models.weapon import WeaponList
+from src.querymodel.weapon import Weapon
 
 class WeaponQuery:
   def get_list():
-    return WeaponList.get_list()
+    return Weapon.get_list()

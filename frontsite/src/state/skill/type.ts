@@ -1,6 +1,8 @@
 export type Skill={
   id:number,
   name:string,
+  skillCategoryId:number,
+  skillCategoryName:string
 }
 
 export type SkillEffect={

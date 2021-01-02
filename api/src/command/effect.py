@@ -1,7 +1,7 @@
-from src.models.effect import Effect
+from src.model.effect import Effect
 from src.domain.service.effect import EffectService
-from src.models.effect_level import EffectLevel
-from src.models.effect_level_detail import EffectLevelDetail
+from src.model.effect_level import EffectLevel
+from src.model.effect_level_detail import EffectLevelDetail
 
 class EffectCommand:
   def getEffectPowerList(skillList):

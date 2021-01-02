@@ -3,7 +3,7 @@ import { RootState } from '../../app/store';
 import { useListWithOutPhantom as useElementListWithOutPhantom} from '../element/selector';
 import { resultNormalAttackList, setAttackData } from '../../domain/calculate/service';
 import { getEffectListFromSkillList } from '../../domain/effect/service';
-import { getSkillListFromSelectedWeaponList } from '../../domain/skill/service';
+import { getPhantomMainSkillListFromPhantomList, getSkillListFromSelectedWeaponList } from '../../domain/skill/service';
 
 export const useListWeapon = () => {
   return useSelector((state:RootState) => state.calcurate.listWeapon) 
@@ -35,7 +35,7 @@ export const useAttackNormal = () => {
   const elementList = useElementListWithOutPhantom();
   const useParameter = useSelector((state:RootState) => state.calcurate.parameter)
 
-  const skillList = getSkillListFromSelectedWeaponList(listWeapon)
+  const skillList = getSkillListFromSelectedWeaponList(listWeapon).concat(getPhantomMainSkillListFromPhantomList(listPhantom))
   const effectList = getEffectListFromSkillList(skillList,useSkillEffectList,useEffectList)
   const effectListWithAttack = setAttackData(effectList,useCalculateList,useParameter,listWeapon,listPhantom);
   // 通常攻撃リストを返します

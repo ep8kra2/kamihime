@@ -1,5 +1,5 @@
 from flask import Blueprint, request, make_response, jsonify
-from src.models.skill import Skill
+from src.model.skill import Skill
 from src.query.skill import SkillQuery
 from src.command.skill import SkillCommand
 from src.database import db

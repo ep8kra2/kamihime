@@ -1,4 +1,4 @@
-from src.models.power import Power
+from src.model.power import Power
 from src.domain.service.power import PowerService
 
 class PowerCommand:

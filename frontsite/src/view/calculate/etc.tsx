@@ -5,7 +5,9 @@ import Paper from '@material-ui/core/Paper';
 import { useParameter } from '../../state/calculate/selector';
 import { Parameter } from '../../state/calculate/type';
 import calcurateSlice from '../../state/calculate/slice';
-import { elementList } from '../../state/element/paramenter';
+import { useListWithOutPhantom as useElementList } from '../../state/element/selector';
+import { useList as useWeaponTypeList } from '../../state/weapontype/selector';
+import { fetchAsyncList as fetchAsyncWeaponTypeList } from '../../state/weapontype/operation';
 import Select from '@material-ui/core/Select/Select';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
 import FormControl from '@material-ui/core/FormControl/FormControl';
@@ -43,6 +45,15 @@ const useStyles = makeStyles((theme:Theme) => ({
 export const Etc = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const elementList = useElementList();
+  const weaponTyleList = useWeaponTypeList();
+
+  React.useEffect(() => {
+    const promise = async() => {
+      await dispatch(fetchAsyncWeaponTypeList());
+    }
+    promise();
+  },[dispatch])
 
   const parameter = useParameter() as Parameter;
 
@@ -58,11 +69,11 @@ export const Etc = () => {
     <React.Fragment>
       <Paper className={classes.paper}>
         <FormControl className={classes.formControl}>
-          <InputLabel shrink id="labelElementShinki">神姫属性</InputLabel>
+          <InputLabel shrink id="labelElementId">神姫属性</InputLabel>
           <Select
-            id="selectElementShinki"
-            value={parameter.elementShinki}
-            onChange={e => {handleOnChange('elementShinki',e.target.value as string)}}
+            id="selectElementId"
+            value={parameter.elementId}
+            onChange={e => {handleOnChange('elementId',e.target.value as string)}}
             displayEmpty
             className={classes.selectEmpty}
           >
@@ -70,23 +81,48 @@ export const Etc = () => {
           </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
-          <InputLabel shrink id="labelAttackShinki">神姫基礎攻撃力</InputLabel>
+          <InputLabel shrink id="labelgoodAtWeapon1">神姫得意武器1</InputLabel>
+          <Select
+            id="selectgoodAtWeapon1"
+            value={parameter.goodAtWeapon1}
+            onChange={e => {handleOnChange('goodAtWeapon1',e.target.value as string)}}
+            displayEmpty
+            className={classes.selectEmpty}
+          >
+            {weaponTyleList.map((row) => <MenuItem key={row.id} value={row.id}>{row.name}</MenuItem>)}
+          </Select>
+        </FormControl>
+        <FormControl className={classes.formControl}>
+          <InputLabel shrink id="labelgoodAtWeapon2">神姫得意武器2</InputLabel>
+          <Select
+            id="selectgoodAtWeapon2"
+            value={parameter.goodAtWeapon2}
+            onChange={e => {handleOnChange('goodAtWeapon2',e.target.value as string)}}
+            displayEmpty
+            className={classes.selectEmpty}
+          >
+            <MenuItem key={0} value={0}>{''}</MenuItem>
+            {weaponTyleList.map((row) => <MenuItem key={row.id} value={row.id}>{row.name}</MenuItem>)}
+          </Select>
+        </FormControl>
+        <FormControl className={classes.formControl}>
+          <InputLabel shrink id="labelAttack">神姫基礎攻撃力</InputLabel>
           <Input 
             className={classes.selectEmpty}
-            id="inputAttackShinki" 
+            id="inputAttack" 
             type="number"
-            value={parameter.attackShinki}
-            onChange={e => handleOnChange('attackShinki',e.target.value)}  
+            value={parameter.attack}
+            onChange={e => handleOnChange('attack',e.target.value)}  
           />
         </FormControl>
         <FormControl className={classes.formControl}>
-          <InputLabel shrink id="labelHpShinki">神姫基礎HP</InputLabel>
+          <InputLabel shrink id="labelHp">神姫基礎HP</InputLabel>
           <Input 
             className={classes.selectEmpty}
-            id="inputHpShinki" 
+            id="inputHp" 
             type="number"
-            value={parameter.hpShinki}
-            onChange={e => handleOnChange('hpShinki',e.target.value)}  
+            value={parameter.hp}
+            onChange={e => handleOnChange('hp',e.target.value)}  
           />
         </FormControl>
         <FormControl className={classes.formControl}>

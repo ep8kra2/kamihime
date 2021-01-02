@@ -1,4 +1,3 @@
-from src.models.skill import Skill
 
 class SkillService:
   def insert(rowData,insert):

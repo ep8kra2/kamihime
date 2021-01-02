@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { AppDispatch } from '../../app/store';
 import { fetchAsyncList as fetchAsyncWeaponList } from '../../state/weapon/operation';
+import { fetchAsyncList as fetchAsyncPhantomList } from '../../state/phantom/operation';
 import { fetchAsyncList as fetchImpactList } from '../../state/impact/operation';
 import { fetchAsyncList as fetchCalculationList } from '../../state/calculation/operation';
 import { fetchAsyncList as fetchAsyncEffectList } from '../../state/effect/operation';
@@ -34,6 +35,7 @@ export const Main = ():JSX.Element => {
   React.useEffect(() => {
     const promise = async() => {
       await dispatch(fetchAsyncWeaponList());
+      await dispatch(fetchAsyncPhantomList());
       await dispatch(fetchImpactList());
       await dispatch(fetchCalculationList());
       await dispatch(fetchAsyncEffectList());

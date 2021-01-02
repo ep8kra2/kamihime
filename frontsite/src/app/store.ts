@@ -11,6 +11,7 @@ import weaponTypeSlice from '../state/weapontype/slice';
 import raritySlice from '../state/rarity/slice';
 import calcurateSlice from '../state/calculate/slice';
 import calculationSlice from '../state/calculation/slice';
+import phantomSlice from '../state/phantom/slice';
 
 export const store = configureStore({
 
@@ -26,7 +27,8 @@ export const store = configureStore({
     weaponType: weaponTypeSlice.reducer,
     rarity: raritySlice.reducer,
     calcurate: calcurateSlice.reducer,
-    calculation: calculationSlice.reducer
+    calculation: calculationSlice.reducer,
+    phantom: phantomSlice.reducer
   },
   middleware: getDefaultMiddleware({
     ...getDefaultMiddleware,serializableCheck: false

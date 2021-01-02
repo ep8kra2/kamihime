@@ -1,4 +1,4 @@
-from src.models.calculation import Calculation
+from src.model.calculation import Calculation
 from src.domain.service.calculation import CalculationService
 
 class CalculationCommand:

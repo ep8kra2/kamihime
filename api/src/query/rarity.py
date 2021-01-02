@@ -1,4 +1,4 @@
-from src.models.rarity import Rarity
+from src.model.rarity import Rarity
 
 class RarityQuery:
   def get_list():

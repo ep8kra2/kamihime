@@ -19,9 +19,16 @@ const initialCalcurateState: CalcurateState = {
   ] as SelectedWeapon[],
   selectedPhantom:{} as SelectedPhantom,
   listPhantom:[
+    {...{} as SelectedPhantom,slot:1,marks:'メイン'},
+    {...{} as SelectedPhantom,slot:2,marks:'フレンド'},
+    {...{} as SelectedPhantom,slot:3},
+    {...{} as SelectedPhantom,slot:4},
+    {...{} as SelectedPhantom,slot:5},
+    {...{} as SelectedPhantom,slot:6},
+    {...{} as SelectedPhantom,slot:7},
 
   ] as SelectedPhantom[],
-  parameter:{playerRank:1,elementShinki:1,attackShinki:1,hpShinki:1,hpRate:100,enemyDefence:10,debufferDefence:0} as Parameter
+  parameter:{playerRank:1,elementId:1, goodAtWeapon1:1, goodAtWeapon2:0, attack:1,hp:1,hpRate:100,enemyDefence:10,debufferDefence:0} as Parameter
 }
 
 export const calcurateSlice = createSlice({
@@ -48,14 +55,28 @@ export const calcurateSlice = createSlice({
       state.listPhantom[action.payload.slot-1] = {
         ...state.listPhantom[action.payload.slot-1],
         phantom: action.payload.phantom,
-        level:5
+        rank: action.payload.phantom.limitBreak === 1? 6 : 5,
+        level:action.payload.phantom.limitBreak === 1? 150 : 100
       }
+      return state
+    },
+    deletePhantom: (state:CalcurateState, action:PayloadAction<number>) => {
+      state.listPhantom[action.payload - 1] = {...{} as SelectedPhantom,slot:action.payload,marks:state.listPhantom[action.payload - 1].marks}
       return state
     },
     selectedPhantom: (state:CalcurateState,action:PayloadAction<number>) => {
       state.selectedPhantom = state.listPhantom.filter((row) => row.slot === action.payload)[0]
       return state
     },
+    editPhantom: (state:CalcurateState,action:PayloadAction<SelectedPhantom>) => {
+      state.listPhantom[action.payload.slot-1] = {
+        ...state.listPhantom[action.payload.slot-1],
+        rank: action.payload.rank,
+        level:action.payload.level
+      }
+      return state
+    },
+  
     setParameter: (state:CalcurateState,action:PayloadAction<Parameter>) => {
       return {
         ...state,

@@ -1,4 +1,3 @@
-from src.models.calculation import Calculation
 
 class CalculationService:
   def check(rowData):

@@ -4,6 +4,8 @@ import dataclasses
 class SkillValue:
   id: int
   name: str
+  skillCategoryId: int
+  skillCategoryName: str
 
 @dataclasses.dataclass(frozen=True)
 class SkillEffectValue:

@@ -37,6 +37,10 @@ export const Main = () => {
 
   const list = useList().map((row) => {return({...row})}) as Skill[];
   const selected = useSelected() as Skill;
+  const lookupSkillCategoryList = {
+    1:"武器",
+    2:"幻獣"
+  }
 
   const handleInsert = (rowData:Skill) => {
     const promise = async () => {
@@ -71,6 +75,7 @@ export const Main = () => {
             columns ={[
               { title: 'id', field: 'id', editable:'never' },
               { title: 'スキル名', field: 'name' },
+              { title: 'スキル分類', field: 'skillCategoryId', lookup: lookupSkillCategoryList}
             ]}
             data={ list }
             editable={{

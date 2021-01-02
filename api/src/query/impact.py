@@ -1,4 +1,4 @@
-from src.models.impact import Impact
+from src.model.impact import Impact
 
 class ImpactQuery:
   def selected(id):

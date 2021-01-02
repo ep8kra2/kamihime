@@ -5,8 +5,19 @@ export type Phantom = {
   rarityName:string,
   elementId:number,
   elementName:string,
-  skillId:number,
-  skillName:string,
+  mainSkillId:number,
+  mainSkillName:string,
+  subSkillId:number,
+  subSkillName:string,
+  minHp:number,
   maxHp:number,
-  maxAt:number
+  minAt:number,
+  maxAt:number,
+  limitBreak:number
+}
+
+export type PhantomState = {
+  selected:Phantom,
+  list:Phantom[],
+  asyncStatus:string
 }

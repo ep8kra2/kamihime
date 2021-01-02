@@ -1,39 +1,53 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import PhantomListDialog from './WeaponListDialog';
+import PhantomListDialog from './phantomListDialog';
 import {useListPhantom, useSelectedPhantom } from '../../state/calculate/selector';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../app/store';
 import { calcurateSlice } from '../../state/calculate/slice';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme:Theme) => ({
-  paper: {
-    padding:theme.spacing(1)
-  },
-  typography: {
-    width:'100%',
-    height:'48px',
-    color:'#FFFFFF',
-    fontSize:'0.9rem',
-    paddingTop:'14px',
-    paddingLeft:theme.spacing(2),
-    backgroundColor: '#8e24aa'
-  }
-}));
+import Select from '@material-ui/core/Select/Select';
+import MenuItem from '@material-ui/core/MenuItem/MenuItem';
+import { SelectedPhantom } from '../../state/calculate/type';
+import { getPhantomHp,getPhantomAt } from '../../domain/phantom/service';
 
 export const SelectedPhantomList = () => {
-  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const dispatch:AppDispatch = useDispatch();
-  const phantomList = useListPhantom();
+  const dispatch = useDispatch();
+  const phantomList = useListPhantom().map((row) => {return{...row}})
   const selected = useSelectedPhantom();
+
+  const lookupRank = {
+    1:1,
+    2:2,
+    3:3,
+    4:4,
+    5:5,
+    6:6
+  }
+
+  const levelList = ():number[] => {
+    var item = [];
+    for (let i = 1; i <= 150 ; i++){
+      item.push(i)
+    }
+    return item;
+  }
+
+  const lookupLevelList = levelList().reduce((result:{[index: number] : number},row) => {
+    result[row] = Number(row)
+    return result
+  },{})
+
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleClickOpen = (slot?:number) => {
+  const handleUpdate = (rowData:SelectedPhantom) => {
+    dispatch(calcurateSlice.actions.editPhantom(rowData))
+  }
+
+  const handleClickOpen = (slot:number | undefined) => {
+    if(slot=== undefined) {return}
     dispatch(calcurateSlice.actions.selectedPhantom(slot as number))
     setOpen(true);
   };
@@ -42,29 +56,58 @@ export const SelectedPhantomList = () => {
     <React.Fragment>
       <MaterialTable
         columns ={[
-          { title: 'slot', field: 'slot' },
-          { title: 'id', field: 'id', hidden:true},
-          { title: '幻獣', field: 'name' },
-          { title: 'メインスキル', field: 'skill1'},
-          { title: 'サブスキル', field: 'skill2'},
-          { title: 'HP', field: 'hp'},
-          { title: 'AT', field:'at'},
-          { title: 'level',field: 'level'},
-          { title: '備考', field:'marks'}
+          { title: 'slot', field: 'slot', editable:'never'},
+          { title: 'id', field: 'phantom.id', hidden:true},
+          { title: '幻獣', field: 'phantom.name', editable:'never' },
+          { title: '属性', field: 'phantom.elementName', editable:'never' },
+          { title: 'レアリティ', field: 'phantom.rarityName', editable:'never' },
+          { title: 'メインスキル', field: 'phantom.mainSkillName', editable:'never'},
+          { title: 'サブスキル', field: 'phantom.subSkillName', editable:'never'},
+          { title: 'HP', field: 'hp', editable:'never', render: ((rowData:SelectedPhantom) => {return getPhantomHp(rowData.phantom,rowData.level).toFixed(0)})},
+          { title: 'AT', field:'at', editable:'never', render: ((rowData:SelectedPhantom) => {return getPhantomAt(rowData.phantom,rowData.level).toFixed(0)})},
+          { title: '限界突破',field: 'rank', type:'numeric',lookup: lookupRank,
+            editComponent:(props) => {
+              return <Select value={props.rowData.rank} onChange={e => {props.onChange(e.target.value)}}>
+                {
+                  Object.values(lookupRank).filter((value) => value <= (props.rowData.phantom.limitBreak === 1 ? 6 : 5)).map((value) => {
+                    return(<MenuItem key={value} value={value}>{value}</MenuItem>)
+                  })
+                }
+              </Select>              
+
+            }
+          },        
+          { title: 'level',field: 'level', type:'numeric', lookup: lookupLevelList,
+            editComponent:(props) => {
+              return <Select value={props.rowData.level} onChange={e => {props.onChange(e.target.value)}}>
+                {
+                  Object.values(lookupLevelList).filter((value) => value <= (props.rowData.rank === 6 ? 150 : props.rowData.rank * 15 + 25)).map((value) => {
+                    return(<MenuItem key={value} value={value}>{value}</MenuItem>)
+                  })
+                }
+              </Select>
+            }
+          },
+          { title: '備考', field:'marks',align:'center', editable:'never'}
         ]}
-          data={ phantomList.map((row) => {return {
-            slot:row.slot,
-            id:row.phantom?.id,
-            name:row.phantom?.name,
-            skill1:'',
-            skill2:'',
-            hp:row.phantom?.maxHp,
-            at:row.phantom?.maxAt,
-            level:row.level,
-            marks:row.marks
-          }})
-        }
+        data={ phantomList }
+        editable={{
+          onRowUpdate: (newData, oldData) => new Promise((resolve, reject) => {
+            setTimeout(() => {
+              const dataUpdate = [...phantomList];
+              if(oldData === undefined){
+                reject();
+              }else{
+                const index = oldData.slot;
+                dataUpdate[index] = newData;
+                handleUpdate(newData);
+                resolve();
+              }
+            }, 1000)
+          })
+        }}
         options={{
+          actionsColumnIndex: -1,
           toolbar:false,
           filtering: false,
           search: false,

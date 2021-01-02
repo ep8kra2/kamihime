@@ -1,4 +1,4 @@
-from src.models.power import Power
+from src.model.power import Power
 
 class PowerQuery:
   def get_list():

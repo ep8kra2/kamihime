@@ -14,7 +14,6 @@ import { fetchAsyncList as fetchAsyncEffectList} from '../../state/effect/operat
 import { useList as useEffectList} from '../../state/effect/selector';
 import { fetchAsyncList as fetchAsyncPowerList} from '../../state/power/operation';
 import { useList as usePowerList} from '../../state/power/selector';
-import calculationSlice from '../../state/calculation/slice';
 import { Calculation } from '../../state/calculation/type';
 
 const useStyles = makeStyles((theme:Theme) => ({

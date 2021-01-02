@@ -5,6 +5,7 @@ import * as Skill from './view/skill/index';
 import * as Effect from './view/effect/index';
 import * as Calculation from './view/calculation/index';
 import * as Category from './view/category/index';
+import * as Phantom from './view/phantom/index';
 import { useSelectedPage } from './state/page/selector';
 
 const App = () => {
@@ -23,6 +24,8 @@ const App = () => {
       return <Calculation.Index />
     case 6:
       return <Category.Index />
+    case 7:
+      return <Phantom.Index />
   };
 
   return <Calcurate.Index />

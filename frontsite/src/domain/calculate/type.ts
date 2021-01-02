@@ -5,5 +5,6 @@ export type CalculateParameter = {
   hpRate:number,
   weaponList:SelectedWeapon[],
   phantomList:SelectedPhantom[],
-  skillLevel:number
+  skillLevel:number,
+  elementId:number
 }

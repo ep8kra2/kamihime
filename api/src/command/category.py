@@ -1,5 +1,5 @@
 from src.domain.service.category import CategoryService
-from src.models.category import Category
+from src.model.category import Category
 
 
 class CategoryCommand:

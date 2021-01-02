@@ -1,4 +1,3 @@
-from src.models.category import Category
 
 class CategoryService:
   def check(category_data):

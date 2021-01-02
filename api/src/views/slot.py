@@ -1,5 +1,5 @@
 from flask import Blueprint, request, make_response, jsonify
-from src.models.slot import Slot,SlotSchema
+from src.model.slot import Slot,SlotSchema
 from src.database import db
 import json
 

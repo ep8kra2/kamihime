@@ -13,14 +13,17 @@ export type SelectedPhantom = {
   slot:number,
   phantom:Phantom,
   level:number,
+  rank:number,
   marks:string
 }
 
 export type Parameter = {
   playerRank:number,
-  elementShinki:number,
-  attackShinki:number,
-  hpShinki:number,
+  elementId:number,
+  goodAtWeapon1:number,
+  goodAtWeapon2:number,
+  attack:number,
+  hp:number,
   hpRate:number,
   enemyDefence:number,
   debufferDefence:number

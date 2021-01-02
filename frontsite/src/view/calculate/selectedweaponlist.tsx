@@ -1,6 +1,6 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import WeaponListDialog from './WeaponListDialog';
+import WeaponListDialog from './weaponListDialog';
 import {useListWeapon, useSelectedWeapon } from '../../state/calculate/selector';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';

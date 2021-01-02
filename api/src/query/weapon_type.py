@@ -1,4 +1,4 @@
-from src.models.weapon_type import WeaponType
+from src.model.weapon_type import WeaponType
 
 class WeaponTypeQuery:
   def get_list():

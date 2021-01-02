@@ -6,15 +6,12 @@ class Skill(db.Model):
 
   id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   name = db.Column(db.String(100))
-
-  def get_list():
-    lists =  db.session.query(Skill).order_by(Skill.id.asc()).all()
-
-    return list(map(lambda row: SkillValue(id=row.id,name=row.name), lists))
+  skillCategoryId = db.Column(db.Integer)
 
   def insert(rowData):
     record = Skill(
-      name = rowData['name']
+      name = rowData['name'],
+      skillCategoryId = rowData['skillCategoryid']
     )
 
     db.session.add(record)
@@ -25,6 +22,7 @@ class Skill(db.Model):
   def update(rowData):
     record = db.session.query(Skill).filter(Skill.id==rowData['id']).first()
     record.name = rowData['name']
+    record.skillCategoryId = rowData['skillCategoryId']
 
     db.session.add(record)
     db.session.commit()

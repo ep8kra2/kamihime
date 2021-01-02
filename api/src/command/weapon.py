@@ -1,4 +1,4 @@
-from src.models.weapon import Weapon
+from src.model.weapon import Weapon
 from src.domain.service.weapon import WeaponService
 
 class WeaponCommand:

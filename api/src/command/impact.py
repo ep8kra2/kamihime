@@ -1,5 +1,5 @@
 from src.domain.service.impact import ImpactService
-from src.models.impact import Impact
+from src.model.impact import Impact
 
 class ImpactCommand:
   def insert(rowData):

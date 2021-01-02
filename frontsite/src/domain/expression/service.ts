@@ -110,6 +110,11 @@ const hiroic:Expression = (level:number,parameter:CalculateParameter):number => 
   return parameter.slot === 1? level * 1 + 10 : 0;
 }
 
+const phantom140:Expression = (level:number,parameter:CalculateParameter):number => {
+  if(parameter.phantomList === undefined) {return 0}
+  return level * 5 + 95 + parameter.phantomList.filter((row) => row.slot >= 3 && row.phantom !== undefined).filter((row) => row.phantom.elementId === parameter.elementId).length * 8
+}
+
 export const useCalculationList = [
   {key:"assaultS",value:assaultS},
   {key:"assaultM",value:assaultM},
@@ -131,7 +136,8 @@ export const useCalculationList = [
   {key:"technicaLimitUpS",value:technicaLimitUpS},
   {key:"technicaLimitUpM",value:technicaLimitUpM},
   {key:"technicaLimitUpL",value:technicaLimitUpL},
-  {key:"hiroic",value:hiroic}
+  {key:"hiroic",value:hiroic},
+  {key:"phantom140",value:phantom140}
 ]
 
 export const resultExpression = (expressionName:string,level:number,parameter:CalculateParameter):number => {

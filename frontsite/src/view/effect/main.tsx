@@ -108,7 +108,10 @@ export const Main = () => {
                   }, 1000)
                 })
             }}
-
+            options={{
+              actionsColumnIndex: -1,
+              headerStyle: { whiteSpace: 'nowrap' }
+            }}
           />
         </Paper>
       </Grid>
