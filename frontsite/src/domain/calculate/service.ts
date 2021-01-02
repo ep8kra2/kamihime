@@ -57,9 +57,9 @@ const updateAttackListFromWeaponList = (attackList:Attack[],weaponList:SelectedW
       ...row,
       attack: row.attack + weaponList.filter((line) => {
         if(line.weapon === undefined){ return false}
-        return line.weapon.elementId === row.elementId
+        return true
       }).reduce((result,line2) => {
-        const power = (line2.weapon.typeId === parameter.goodAtWeapon1 || line2.weapon.typeId === parameter.goodAtWeapon2)? 1.2 : 1
+        const power = (row.elementId === parameter.elementId && (line2.weapon.typeId === parameter.goodAtWeapon1 || line2.weapon.typeId === parameter.goodAtWeapon2))? 1.2 : 1
         result += line2.weapon.maxAt * power
         return result
       },0)
