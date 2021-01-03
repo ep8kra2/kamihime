@@ -8,3 +8,4 @@ class ImpactValue:
   categoryName: str
   impactTypeId: int
   impactTypeName: str
+  limitValue: int

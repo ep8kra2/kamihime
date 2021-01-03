@@ -4,7 +4,8 @@ export type Impact={
   categoryId:number,
   categoryName:string,
   impactTypeId:number,
-  impactTypeName:string
+  impactTypeName:string,
+  limitValue:string
 }
 
 export type ImpactState={

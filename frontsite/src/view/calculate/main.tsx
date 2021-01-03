@@ -10,6 +10,7 @@ import { fetchAsyncList as fetchImpactList } from '../../state/impact/operation'
 import { fetchAsyncList as fetchCalculationList } from '../../state/calculation/operation';
 import { fetchAsyncList as fetchAsyncEffectList } from '../../state/effect/operation';
 import { fetchAsyncListEffect as fetchAsyncSkillEffectList } from '../../state/skill/operation';
+import { fetchAsyncList as fetchAsyncSkillList } from '../../state/skill/operation';
 import Summary from './summary';
 import Setting from './setting';
 
@@ -39,6 +40,7 @@ export const Main = ():JSX.Element => {
       await dispatch(fetchImpactList());
       await dispatch(fetchCalculationList());
       await dispatch(fetchAsyncEffectList());
+      await dispatch(fetchAsyncSkillList());
       await dispatch(fetchAsyncSkillEffectList());
     }
     promise();

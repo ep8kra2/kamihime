@@ -1,5 +1,5 @@
 import { CalculateParameter } from "../calculate/type";
-import { Expression } from "./type";
+import { Expression, ExpressionPower } from "./type";
 
 const assault = (level:number,coefficient:number,constant:number) => {
   return level * coefficient + constant;
@@ -115,6 +115,27 @@ const phantom140:Expression = (level:number,parameter:CalculateParameter):number
   return level * 5 + 95 + parameter.phantomList.filter((row) => row.slot >= 3 && row.phantom !== undefined).filter((row) => row.phantom.elementId === parameter.elementId).length * 8
 }
 
+// 守護幻獣スキル倍率アップ
+const guardianPower:ExpressionPower =  (level:number,parameter:CalculateParameter) => {
+  return  (elementId:number,skillCategoryId:number) => {
+    return (elementId === parameter.elementId && skillCategoryId === 1)? level * 5 + 15 : 0
+  }
+}
+
+// カタスウエポンスキル倍率アップ
+const catasPower:ExpressionPower = (level:number,parameter:CalculateParameter) => {
+  return  (elementId:number,skillCategoryId:number) => {
+    console.log(elementId)
+    console.log(parameter.elementId)
+    console.log(skillCategoryId)
+    return (elementId === parameter.elementId && skillCategoryId === 1)? 50 : 0
+  }
+}
+
+const catasAssault:Expression = (level:number,parameter:CalculateParameter):number => {
+  return  level * 20
+}
+
 export const useCalculationList = [
   {key:"assaultS",value:assaultS},
   {key:"assaultM",value:assaultM},
@@ -137,10 +158,21 @@ export const useCalculationList = [
   {key:"technicaLimitUpM",value:technicaLimitUpM},
   {key:"technicaLimitUpL",value:technicaLimitUpL},
   {key:"hiroic",value:hiroic},
-  {key:"phantom140",value:phantom140}
+  {key:"phantom140",value:phantom140},
+  {key:"catasAssault",value:catasAssault}
 ]
 
 export const resultExpression = (expressionName:string,level:number,parameter:CalculateParameter):number => {
-   const result = useCalculationList.find((row) => row.key === expressionName)?.value(level,parameter)
-    return result? result : 0
+  const result = useCalculationList.find((row) => row.key === expressionName)?.value(level,parameter)
+  return result? result : 0
+}
+
+const useCalculationPowerList = [
+  {key:"catasPower",value:catasPower},
+  {key:"guardianPower",value:guardianPower}
+]
+
+export const resultExpressionPower = (expressionName:string,level:number,parameter:CalculateParameter):((elementId:number,skillCategoryId:number) => number) | undefined => {
+  const result = useCalculationPowerList.find((row) => row.key === expressionName)?.value(level,parameter)
+  return result
 }

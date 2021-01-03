@@ -8,7 +8,7 @@ class SkillCommand:
     return SkillService.insert(rowData,Skill.insert)    
 
   def update(rowData):
-    return skillService.update(rowData,Skill.update)    
+    return SkillService.update(rowData,Skill.update)    
 
   def insert_effect(rowData):
     return SkillService.insert_effect(rowData,SkillEffect.insert)

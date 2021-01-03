@@ -10,15 +10,18 @@ export const getEffectListFromSkillList = (list:SelectedSkill[],skillEffectList:
   const getEffect = (effectId:number) => { return effectList.find((row) => row.id === effectId) as Effect}
 
   return list.reduce((result,row) => {
-    return result.concat(getSkillEffect(row.skillId).map((rowEffect) => {
+    if(row.skill === undefined){return result};
+
+    return result.concat(getSkillEffect(row.skill.id).map((rowEffect) => {
       return {
         effect:getEffect(rowEffect.effectId),
         slot:row.slot,
-        skillId:row.skillId,
+        skill:row.skill,
         powerId:row.powerId,
         elementId:row.elementId,
         level:row.level,
-        impactValue:0
+        impactValue:0,
+        skillType:row.skillType
       }
     }))
   },[] as SelectedEffect[]);

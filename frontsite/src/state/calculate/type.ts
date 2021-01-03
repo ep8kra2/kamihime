@@ -1,6 +1,7 @@
 import { Weapon } from '../weapon/type'
 import { Phantom } from '../phantom/type'; 
 import { Effect } from '../effect/type';
+import { Skill } from '../skill/type';
 
 export type SelectedWeapon = {
   slot:number,
@@ -38,20 +39,23 @@ export type Attack = {
 
 export type SelectedSkill = {
   slot:number,
-  skillId:number,
+  skill:Skill,
   powerId:number,
   elementId:number, 
-  level:number
+  level:number,
+  skillType:number
 }
 
 export type SelectedEffect = {
   slot:number,
-  skillId:number,
+  skill:Skill,
   powerId:number,
   elementId:number,
   level:number,
   effect:Effect,
-  impactValue:number
+  impactValue:number,
+  skillType:number,
+  powerValue?:(x:number,y:number) => number
 }
 
 export type CalcurateState = {

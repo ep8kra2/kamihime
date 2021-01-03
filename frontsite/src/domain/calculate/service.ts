@@ -3,7 +3,7 @@ import { Calculation } from '../../state/calculation/type';
 import {CalculateParameter} from './type';
 import {Element} from '../../state/element/type';
 import { Impact } from '../../state/impact/type';
-import { resultExpression } from '../expression/service';
+import { resultExpression, resultExpressionPower } from '../expression/service';
 import { getPhantomAt } from '../phantom/service';
 
 export const setAttackData = (selectedEffectList:SelectedEffect[],culculationList:Calculation[],parameter:Parameter, weaponList:SelectedWeapon[],phantomList:SelectedPhantom[]):SelectedEffect[] => {
@@ -18,9 +18,18 @@ export const setAttackData = (selectedEffectList:SelectedEffect[],culculationLis
     } as CalculateParameter
     const culculation = culculationList.find((line) => line.effectId === row.effect.id && line.powerId === row.powerId)
     if(culculation === undefined){ return row};
+    if(isPower(row.effect.categoryId)) {
+      const expression = resultExpressionPower(culculation.expressionName,row.level,culculationParameter)
+      return {
+        ...row,
+        powerValue: expression 
+      }      
+    }
+
+    const expression = resultExpression(culculation.expressionName,row.level,culculationParameter)
     return {
       ...row,
-      impactValue:resultExpression(culculation.expressionName,row.level,culculationParameter)
+      impactValue: expression 
     }
   })
 }
@@ -33,6 +42,11 @@ const isNormal = (categoryId:number) => {
 // バースト攻撃リストに含めるのか？
 const isBarst = (categoryId:number) => {
   return categoryId === 1 || categoryId === 3 ? true : false
+}
+
+// スキル性能用効果なのか？
+const isPower = (categoryId:number) => {
+  return categoryId === 7 ? true : false
 }
 
 // パラメータから必要値をセットして属性ごとのリストを初期化する
@@ -85,12 +99,28 @@ const updateAttackListFromPhantomList = (attackList:Attack[],phantomList:Selecte
   })
 }
 
+// 効果値の倍率を算出
+const powerValue = (powerList:SelectedEffect[],elementId:number,skillCategoryId:number) => {
+  return powerList.reduce((result,row) => {
+    if(row.powerValue !== undefined){
+      result += row.powerValue(elementId,skillCategoryId)
+    }
+    return result
+  },0)
+}
+
+const limitValue = (impactList:Impact[],impactId:number) => {
+  const value = impactList.find((row) => row.id === impactId)?.limitValue 
+  return value? value : 9999
+}
+
 // 効果値をリストに追加します
-const resultAttackFromSelectedWeaponList = (attackList:Attack[],effectList:SelectedEffect[]):Attack[] => {
+const resultAttackFromSelectedWeaponList = (attackList:Attack[],effectList:SelectedEffect[],powerList:SelectedEffect[],impactList:Impact[]):Attack[] => {
   return attackList.map((row:Attack) => {
     return effectList.reduce((result,line) => {
       if(result.elementId === line.elementId && line.effect.impactName in result){
-        result[line.effect.impactName] = Number(result[line.effect.impactName]) + Number(line.impactValue)
+        const value = Number(result[line.effect.impactName]) + (Number(line.impactValue) * (1 + powerValue(powerList,line.elementId,line.skill.skillCategoryId) / 100))
+        result[line.effect.impactName] = (limitValue(impactList,line.effect.impactId) < value)? limitValue(impactList,line.effect.impactId) : value
       }
       return result
     },row)
@@ -100,7 +130,6 @@ const resultAttackFromSelectedWeaponList = (attackList:Attack[],effectList:Selec
 // 通常攻撃リストを返します
 export const resultNormalAttackList = (parameter:Parameter, effectList:SelectedEffect[],impactList:Impact[],elementList:Element[],weaponList:SelectedWeapon[],phantomList:SelectedPhantom[]):Attack[] => {
   const effectNormalList = effectList.filter((row) => isNormal(row.effect.categoryId))
-
   const initAttackNormal = impactList.reduce((result,row) => {
     if(isNormal(row.categoryId)){
       result[row.name] = 0
@@ -109,17 +138,19 @@ export const resultNormalAttackList = (parameter:Parameter, effectList:SelectedE
   },{} as Attack )
 
   // 影響値をセット
+  const powerList = effectList.filter((row) => isPower(row.effect.categoryId))
+  console.log(powerList)
   const attackList = getInitAttackList(initAttackNormal,parameter,elementList,impactList)
   const attackListWithWeapon = updateAttackListFromWeaponList(attackList,weaponList,parameter)
   const attackListWithWeaponAndPhantom = updateAttackListFromPhantomList(attackListWithWeapon,phantomList,parameter)
-  return resultAttackFromSelectedWeaponList(attackListWithWeaponAndPhantom,effectNormalList)
+  return resultAttackFromSelectedWeaponList(attackListWithWeaponAndPhantom,effectNormalList,powerList,impactList)
 }
 
 // バースト攻撃リストを返します
 export const resultBarstAttackList = (parameter:Parameter, effectList:SelectedEffect[],impactList:Impact[],elementList:Element[],weaponList:SelectedWeapon[],phantomList:SelectedPhantom[]):Attack[] => {
   const effectBarstList = effectList.filter((row) => isBarst(row.effect.categoryId))
 
-  const initBarstNormal = impactList.reduce((result,row) => {
+  const initAttackBarst = impactList.reduce((result,row) => {
     if(isBarst(row.categoryId)){
       result[row.name] = 0
     }
@@ -127,10 +158,11 @@ export const resultBarstAttackList = (parameter:Parameter, effectList:SelectedEf
   },{} as Attack )
 
   // 影響値をセット
-  const attackList = getInitAttackList(initBarstNormal,parameter,elementList,impactList)
-  const attackListWithWeaponStatus = updateAttackListFromWeaponList(attackList,weaponList,parameter)
-  console.log(phantomList)
-  return resultAttackFromSelectedWeaponList(attackListWithWeaponStatus,effectBarstList)
+  const powerList = effectList.filter((row) => isPower(row.effect.categoryId))
+  const attackList = getInitAttackList(initAttackBarst,parameter,elementList,impactList)
+  const attackListWithWeapon = updateAttackListFromWeaponList(attackList,weaponList,parameter)
+  const attackListWithWeaponAndPhantom = updateAttackListFromPhantomList(attackListWithWeapon,phantomList,parameter)
+  return resultAttackFromSelectedWeaponList(attackListWithWeaponAndPhantom,effectBarstList,powerList,impactList)
 }
 
 // 敵防御値から減衰前の数値を算出します

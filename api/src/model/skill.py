@@ -11,7 +11,7 @@ class Skill(db.Model):
   def insert(rowData):
     record = Skill(
       name = rowData['name'],
-      skillCategoryId = rowData['skillCategoryid']
+      skillCategoryId = rowData['skillCategoryId']
     )
 
     db.session.add(record)

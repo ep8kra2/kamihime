@@ -10,7 +10,7 @@ export const useList = () => {
 }
 
 export const useWeaponList = () => {
-  return useSelector((state:RootState) => state.skill.list.filter((row) => row.skillCategoryId === 1));
+  return useSelector((state:RootState) => state.skill.list.filter((row) => row.skillCategoryId === 1 || row.skillCategoryId === 3));
 }
 
 export const usePhantomList = () => {

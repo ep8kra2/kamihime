@@ -11,6 +11,7 @@ class Impact(db.Model):
   categoryName = db.Column(db.String(100))
   impactTypeId = db.Column(db.Integer)
   impactTypeName = db.Column(db.String(100))
+  limitValue = db.Column(db.Integer)
 
   def selected(id):
     records =  db.session.query(Impact).filter(Impact.id == id).order_by(Impact.id.asc()).all()
@@ -21,7 +22,8 @@ class Impact(db.Model):
       categoryId=row.categoryId,
       categoryName=row.categoryName,
       impactTypeId=row.impactTypeId,
-      impactTypeName=row.impactTypeName
+      impactTypeName=row.impactTypeName,
+      limitValue=row.limitValue
     ), records))
 
   def get_list():
@@ -33,7 +35,8 @@ class Impact(db.Model):
       categoryId=row.categoryId,
       categoryName=row.categoryName,
       impactTypeId=row.impactTypeId,
-      impactTypeName=row.impactTypeName
+      impactTypeName=row.impactTypeName,
+      limitValue = row.limitValue
     ), records))
 
   def insert(rowData):
@@ -42,7 +45,8 @@ class Impact(db.Model):
       categoryId = rowData['categoryId'],
       categoryName = rowData['categoryName'],
       impactTypeId = rowData['impactTypeId'],
-      impactTypeName = rowData['impactTypeName']
+      impactTypeName = rowData['impactTypeName'],
+      limitValue = rowData['limitValue']
     )
 
     db.session.add(record)
@@ -55,6 +59,7 @@ class Impact(db.Model):
     record.name = rowData['name']
     record.impactTypeId = rowData['impactTypeId']
     record.impactTypeName = rowData['impactTypeName']
+    record.limitValue = rowData['limitValue']
     db.session.add(record)
     db.session.commit()
 

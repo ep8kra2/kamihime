@@ -34,10 +34,12 @@ export const useAttackNormal = () => {
   const useImpactList = useSelector((state:RootState) => state.impact.list)
   const elementList = useElementListWithOutPhantom();
   const useParameter = useSelector((state:RootState) => state.calcurate.parameter)
+  const useSkillList = useSelector((state:RootState) => state.skill.list)
 
-  const skillList = getSkillListFromSelectedWeaponList(listWeapon).concat(getPhantomMainSkillListFromPhantomList(listPhantom))
+  const skillList = getSkillListFromSelectedWeaponList(listWeapon,useSkillList).concat(getPhantomMainSkillListFromPhantomList(listPhantom,useSkillList))
   const effectList = getEffectListFromSkillList(skillList,useSkillEffectList,useEffectList)
   const effectListWithAttack = setAttackData(effectList,useCalculateList,useParameter,listWeapon,listPhantom);
+
   // 通常攻撃リストを返します
   return resultNormalAttackList(useParameter,effectListWithAttack,useImpactList,elementList,listWeapon,listPhantom)
 }
