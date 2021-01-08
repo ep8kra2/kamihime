@@ -17,6 +17,8 @@ export const getEffectListFromSkillList = (list:SelectedSkill[],skillEffectList:
         effect:getEffect(rowEffect.effectId),
         slot:row.slot,
         skill:row.skill,
+        phantom:row.phantom,
+        weapon:row.weapon,
         powerId:row.powerId,
         elementId:row.elementId,
         level:row.level,

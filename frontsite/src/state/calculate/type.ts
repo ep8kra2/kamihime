@@ -2,6 +2,7 @@ import { Weapon } from '../weapon/type'
 import { Phantom } from '../phantom/type'; 
 import { Effect } from '../effect/type';
 import { Skill } from '../skill/type';
+import { ReturnSkillEnhance, ReturnWeaponEnhance } from '../../domain/expression/type';
 
 export type SelectedWeapon = {
   slot:number,
@@ -40,6 +41,8 @@ export type Attack = {
 export type SelectedSkill = {
   slot:number,
   skill:Skill,
+  phantom:Phantom,
+  weapon:Weapon,
   powerId:number,
   elementId:number, 
   level:number,
@@ -49,13 +52,16 @@ export type SelectedSkill = {
 export type SelectedEffect = {
   slot:number,
   skill:Skill,
+  phantom:Phantom,
+  weapon:Weapon,
   powerId:number,
   elementId:number,
   level:number,
   effect:Effect,
   impactValue:number,
   skillType:number,
-  powerValue?:(x:number,y:number) => number
+  skillEnhance?:ReturnSkillEnhance,
+  weaponEnhance?:ReturnWeaponEnhance
 }
 
 export type CalcurateState = {

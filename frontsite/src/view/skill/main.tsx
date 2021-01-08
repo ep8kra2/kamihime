@@ -39,7 +39,9 @@ export const Main = () => {
   const selected = useSelected() as Skill;
   const lookupSkillCategoryList = {
     1:"武器",
-    2:"幻獣"
+    2:"幻獣",
+    3:"英霊武器",
+    4:"幻武器"
   }
 
   const handleInsert = (rowData:Skill) => {

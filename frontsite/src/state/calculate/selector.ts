@@ -3,7 +3,7 @@ import { RootState } from '../../app/store';
 import { useListWithOutPhantom as useElementListWithOutPhantom} from '../element/selector';
 import { resultNormalAttackList, setAttackData } from '../../domain/calculate/service';
 import { getEffectListFromSkillList } from '../../domain/effect/service';
-import { getPhantomMainSkillListFromPhantomList, getSkillListFromSelectedWeaponList } from '../../domain/skill/service';
+import { getPhantomMainSkillListFromPhantomList, getPhantomSubSkillListFromPhantomList, getSkillListFromSelectedWeaponList } from '../../domain/skill/service';
 
 export const useListWeapon = () => {
   return useSelector((state:RootState) => state.calcurate.listWeapon) 
@@ -36,7 +36,7 @@ export const useAttackNormal = () => {
   const useParameter = useSelector((state:RootState) => state.calcurate.parameter)
   const useSkillList = useSelector((state:RootState) => state.skill.list)
 
-  const skillList = getSkillListFromSelectedWeaponList(listWeapon,useSkillList).concat(getPhantomMainSkillListFromPhantomList(listPhantom,useSkillList))
+  const skillList = getSkillListFromSelectedWeaponList(listWeapon,useSkillList).concat(getPhantomMainSkillListFromPhantomList(listPhantom,useSkillList)).concat(getPhantomSubSkillListFromPhantomList(listPhantom,useSkillList))
   const effectList = getEffectListFromSkillList(skillList,useSkillEffectList,useEffectList)
   const effectListWithAttack = setAttackData(effectList,useCalculateList,useParameter,listWeapon,listPhantom);
 

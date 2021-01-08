@@ -39,7 +39,7 @@ CREATE TABLE `calculations` (
   `expression` varchar(200) NOT NULL,
   `marks` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +48,7 @@ CREATE TABLE `calculations` (
 
 LOCK TABLES `calculations` WRITE;
 /*!40000 ALTER TABLE `calculations` DISABLE KEYS */;
-INSERT INTO `calculations` VALUES (1,'アサルト小',1,1,'assaultS','0.5 * level + 0','アサルト加算。スキルレベル毎 + 0.5%UP + 固定値 0%'),(2,'アサルト中',1,2,'assaultM','0.5 * level + 3.0','アサルト加算。スキルレベル毎 + 0.5%UP + 固定値 3%'),(3,'アサルト大',1,3,'assaultL','0.5 * level + 6.0','アサルト加算。スキルレベル毎 + 0.5%UP + 固定値 6%'),(4,'アサルト特大',1,5,'assaultXL','0.7 * level + 9.0','アサルト加算。スキルレベル毎 + 0.7%UP + 固定値 9%'),(5,'アサルト極大',1,4,'assaultXXL','1.0 * level + 10.0','アサルト加算。スキルレベル毎 + 1.0%UP + 固定値 10%'),(7,'プライド小',3,1,'prideS','0.35 * level + 12 * (1 - hpRate)','アサルト加算。スキルレベル * 0.35% + 12 * (1 - 現HP/MAXHP)'),(8,'英霊攻撃UP',7,4,'hiroic','1.0 * level * 10.0','スロット1のみ適用。属性攻撃UP'),(9,'テクニカ攻撃UP小',8,1,'technicaS','0.4 * level + 2.0','通常攻撃UP。レベル x 0.4% + 2.0%'),(10,'テクニカ上限UP小',9,1,'technicaLimitUpS','5','上限アップは5%固定値'),(11,'テクニカ攻撃中',8,2,'technicaM','0.4 * level * 6.0','通常攻撃UP。式だれか教えてください'),(12,'テクニカ上限UP中',9,2,'technicaLimitUpM','7.5','固定値'),(13,'テクニカ攻撃大',8,3,'technicaL','0.4 * level * 10.0','式わからんので暫定'),(14,'テクニカ上限UP大',9,3,'technicaLimitUpL','10','暫定値'),(15,'ヴィゴラス小',4,1,'vigorousS','Math.pow(level * coefficient + constant , (hpRate / 100)) - Math.pow(level * coefficient + constant,0.5)','ヴィゴラス加算。'),(16,'プライド中',3,2,'prideM','0.5 * level + 12 * (1 - hpRate)','アサルト加算'),(17,'プライド大',3,3,'prideL','0.5 * level +20*(1-HP/MHP)','アサルト加算'),(18,'140幻',2,1,'phantom140','rank * 5 + 95 + elementEqual * 8','属性UP。基礎値100 1凸ごとに5%UP。同属性のサブ1体につき+8%');
+INSERT INTO `calculations` VALUES (1,'アサルト小',1,1,'assaultS','0.5 * level + 0','アサルト加算。スキルレベル毎 + 0.5%UP + 固定値 0%'),(2,'アサルト中',1,2,'assaultM','0.5 * level + 3.0','アサルト加算。スキルレベル毎 + 0.5%UP + 固定値 3%'),(3,'アサルト大',1,3,'assaultL','0.5 * level + 6.0','アサルト加算。スキルレベル毎 + 0.5%UP + 固定値 6%'),(4,'アサルト特大',1,5,'assaultXL','0.7 * level + 9.0','アサルト加算。スキルレベル毎 + 0.7%UP + 固定値 9%'),(5,'アサルト極大',1,4,'assaultXXL','1.0 * level + 10.0','アサルト加算。スキルレベル毎 + 1.0%UP + 固定値 10%'),(7,'プライド小',3,1,'prideS','0.35 * level + 12 * (1 - hpRate)','アサルト加算。スキルレベル * 0.35% + 12 * (1 - 現HP/MAXHP)'),(8,'英霊攻撃UP',7,4,'hiroic','1.0 * level * 10.0','スロット1のみ適用。属性攻撃UP'),(9,'テクニカ攻撃UP小',8,1,'technicaS','0.4 * level + 2.0','通常攻撃UP。レベル x 0.4% + 2.0%'),(10,'テクニカ上限UP小',9,1,'technicaLimitUpS','5','上限アップは5%固定値'),(11,'テクニカ攻撃中',8,2,'technicaM','0.4 * level * 6.0','通常攻撃UP。式だれか教えてください'),(12,'テクニカ上限UP中',9,2,'technicaLimitUpM','7.5','固定値'),(13,'テクニカ攻撃大',8,3,'technicaL','0.4 * level * 10.0','式わからんので暫定'),(14,'テクニカ上限UP大',9,3,'technicaLimitUpL','10','暫定値'),(15,'ヴィゴラス小',4,1,'vigorousS','Math.pow(level * coefficient + constant , (hpRate / 100)) - Math.pow(level * coefficient + constant,0.5)','ヴィゴラス加算。'),(16,'プライド中',3,2,'prideM','0.5 * level + 12 * (1 - hpRate)','アサルト加算'),(17,'プライド大',3,3,'prideL','0.5 * level +20*(1-HP/MHP)','アサルト加算'),(18,'140幻',2,1,'phantom140','rank * 5 + 95 + elementEqual * 8','属性UP。基礎値100 1凸ごとに5%UP。同属性のサブ1体につき+8%'),(19,'カタスアサルトUP',18,1,'catasAssault','rank * 20','アサルト加算。ランク毎に x 20'),(20,'カタススキルUP',19,1,'catasSkillEnhance','50','スキル効果量 50%増量'),(21,'守護天使武器性能UP',20,1,'guardianSkillEnhance','rank * 5 + 15','スキル効果UP rank毎 + 5% + 15%'),(22,'カラミティエンハンス',21,1,'calamityWeaponEnhance','{at:1.3 , hp:1.45}','武器種一致で at x 1.3 hp x 1.45'),(23,'100幻',24,1,'phantom100','rank * 5 + 95 + rank === 6? 15 : 0','属性攻撃UP'),(24,'旺極',25,1,'vigorousSkillEnhance','vigorous +50%','ヴィゴラス効果 50%UP'),(25,'反極',26,1,'prideSkillEnhance','pride + 50%','プライド効果 50%UP'),(26,'100幻光闇',27,1,'phantom100LD','80 + rank === 6? 15 : 0 + (3 + rank) * subphantom.length ','属性UP。80 + ranku * 属性一致幻獣数'),(27,'アサルト(カラミティ',28,3,'calamityAassaultL','0.5 * level + 6','アサルトUP。同武器種6種以上で効果'),(28,'ヴィゴラス中',4,2,'vigorousM','Math.pow(level * coefficient + constant , (hpRate / 100)) - Math.pow(level * coefficient + constant,0.5)','ヴィゴラス'),(29,'ヴィゴラス大',4,3,'vigorousL','Math.pow(level * coefficient + constant , (hpRate / 100)) - Math.pow(level * coefficient + constant,0.5)','ヴィゴラス大');
 /*!40000 ALTER TABLE `calculations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +63,7 @@ CREATE TABLE `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +72,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'攻撃'),(2,'通常攻撃'),(3,'バースト'),(4,'アビリティ'),(5,'HP'),(6,'回復');
+INSERT INTO `categories` VALUES (1,'攻撃'),(2,'通常攻撃'),(3,'バースト'),(4,'アビリティ'),(5,'HP'),(6,'回復'),(7,'スキル'),(8,'武器');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +143,7 @@ CREATE TABLE `effects` (
   `impactId` int(11) NOT NULL,
   `calcurate` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +152,7 @@ CREATE TABLE `effects` (
 
 LOCK TABLES `effects` WRITE;
 /*!40000 ALTER TABLE `effects` DISABLE KEYS */;
-INSERT INTO `effects` VALUES (1,'アサルト',1,1,''),(2,'属性攻撃UP(140幻)\r\n',1,2,''),(3,'プライド',1,1,''),(4,'ヴィゴラス',1,3,''),(5,'リベリオン',1,4,''),(6,'特殊',1,5,''),(7,'英霊属性UP',1,2,''),(8,'テクニカ',2,6,NULL),(9,'テクニカ上限UP',2,7,'vigorous'),(10,'エクシード',3,8,'rebellion'),(11,'エクシード上限UP',3,9,NULL),(12,'エラボレイト',4,10,NULL),(13,'エラボレイト上限UP',4,11,'hiroic'),(14,'スティンガー',1,24,'pride'),(15,'ディフェンダー',5,7,NULL),(16,'アセンション',6,26,NULL),(17,'回復上限UP',6,27,NULL);
+INSERT INTO `effects` VALUES (1,'アサルト',1,1,''),(2,'属性攻撃UP(140幻)\r\n',1,2,''),(3,'プライド',1,1,''),(4,'ヴィゴラス',1,3,''),(5,'リベリオン',1,4,''),(6,'特殊',1,5,''),(7,'英霊属性UP',1,2,''),(8,'テクニカ',2,6,NULL),(9,'テクニカ上限UP',2,7,'vigorous'),(10,'エクシード',3,8,'rebellion'),(11,'エクシード上限UP',3,9,NULL),(12,'エラボレイト',4,10,NULL),(13,'エラボレイト上限UP',4,11,'hiroic'),(14,'スティンガー',1,24,'pride'),(15,'ディフェンダー',5,7,NULL),(16,'アセンション',6,26,NULL),(17,'回復上限UP',6,27,NULL),(18,'アサルト(カタス)',1,1,NULL),(19,'姫武器スキル性能UP(カタス)',7,28,NULL),(20,'姫武器スキル性能UP(守護)',7,28,NULL),(21,'エンハンス(カラミティ)',8,29,NULL),(22,'2連確率UP',2,30,NULL),(23,'3連確率UP',2,31,NULL),(24,'属性攻撃UP(100幻)',1,2,NULL),(25,'エンハンス(ヴィゴラス)',7,28,NULL),(26,'エンハンス(プライド)',7,28,NULL),(27,'属性攻撃UP(100幻光闇)',1,2,NULL),(28,'アサルト(カラミティ)',1,1,NULL);
 /*!40000 ALTER TABLE `effects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -218,8 +218,9 @@ CREATE TABLE `impacts` (
   `categoryName` varchar(100) NOT NULL,
   `impactTypeId` int(11) NOT NULL,
   `impactTypeName` varchar(100) NOT NULL,
+  `limitValue` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,7 +229,7 @@ CREATE TABLE `impacts` (
 
 LOCK TABLES `impacts` WRITE;
 /*!40000 ALTER TABLE `impacts` DISABLE KEYS */;
-INSERT INTO `impacts` VALUES (1,'アサルト',1,'攻撃',1,'数値UP'),(2,'属性',1,'攻撃',1,'数値UP'),(3,'ヴィゴラス',1,'攻撃\r\n',1,'数値UP'),(4,'リベリオン',1,'攻撃',1,'数値UP'),(5,'特殊',1,'攻撃',1,'数値UP'),(6,'テクニカ',2,'通常攻撃',1,'数値UP'),(7,'通常上限UP',2,'通常攻撃',3,'上限UP'),(8,'バースト',3,'バースト',1,'数値UP'),(9,'バースト上限UP',3,'バースト',3,'上限UP'),(10,'エラボレイト',4,'アビリティ',1,'数値UP'),(11,'アビリティ上限UP',4,'アビリティ',3,'上限UP'),(12,'急所',1,'攻撃',4,'確率数値UP'),(13,'急所確率UP',1,'攻撃',2,'確率UP'),(21,'HPUP',5,'HP',1,'数値UP'),(26,'回復性能UP',6,'回復',1,'数値UP'),(27,'回復上限UP',6,'回復',3,'上限UP');
+INSERT INTO `impacts` VALUES (1,'アサルト',1,'攻撃',1,'数値UP',9999),(2,'属性',1,'攻撃',1,'数値UP',9999),(3,'ヴィゴラス',1,'攻撃\r\n',1,'数値UP',100),(4,'リベリオン',1,'攻撃',1,'数値UP',9999),(5,'特殊',1,'攻撃',1,'数値UP',9999),(6,'テクニカ',2,'通常攻撃',1,'数値UP',300),(7,'通常上限UP',2,'通常攻撃',3,'上限UP',9999),(8,'バースト',3,'バースト',1,'数値UP',500),(9,'バースト上限UP',3,'バースト',3,'上限UP',200),(10,'エラボレイト',4,'アビリティ',1,'数値UP',9999),(11,'アビリティ上限UP',4,'アビリティ',3,'上限UP',9999),(12,'急所',1,'攻撃',4,'確率数値UP',9999),(13,'急所確率UP',1,'攻撃',2,'確率UP',9999),(21,'HPUP',5,'HP',1,'数値UP',9999),(26,'回復性能UP',6,'回復',1,'数値UP',9999),(27,'回復上限UP',6,'回復',3,'上限UP',9999),(28,'スキル性能UP',7,'スキル',1,'数値UP',9999),(29,'武器性能UP',8,'武器',1,'数値UP',9999999),(30,'2連確率UP',2,'通常攻撃',2,'確率UP',100),(31,'3連確率UP',2,'通常攻撃',2,'確率UP',100);
 /*!40000 ALTER TABLE `impacts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,7 +253,7 @@ CREATE TABLE `phantoms` (
   `subSkillId` int(11) DEFAULT NULL,
   `limitBreak` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -261,7 +262,7 @@ CREATE TABLE `phantoms` (
 
 LOCK TABLES `phantoms` WRITE;
 /*!40000 ALTER TABLE `phantoms` DISABLE KEYS */;
-INSERT INTO `phantoms` VALUES (1,'リバイアサン',3,2,594,2712,99,452,7,0,0),(2,'ケルベロス',3,1,432,2592,102,612,7,0,0);
+INSERT INTO `phantoms` VALUES (1,'リバイアサン',3,2,594,2712,99,452,7,0,0),(2,'ケルベロス',3,1,432,2592,102,612,7,0,0),(3,'オフィエル',3,2,340,2040,120,720,12,0,0),(4,'氷天獄カタストロフィア',3,2,500,3000,100,600,13,0,0),(5,'ルドラ',3,2,423,3807,115,1035,18,0,1),(6,'マーナガルム',3,5,400,3600,125,1125,21,0,1);
 /*!40000 ALTER TABLE `phantoms` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -433,7 +434,7 @@ CREATE TABLE `skill_categories` (
 
 LOCK TABLES `skill_categories` WRITE;
 /*!40000 ALTER TABLE `skill_categories` DISABLE KEYS */;
-INSERT INTO `skill_categories` VALUES (1,'武器'),(2,'幻獣');
+INSERT INTO `skill_categories` VALUES (1,'武器'),(2,'幻獣'),(3,'英霊武器'),(4,'幻武器');
 /*!40000 ALTER TABLE `skill_categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -450,7 +451,7 @@ CREATE TABLE `skill_effects` (
   `effectId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `skillId` (`skillId`,`effectId`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -459,7 +460,7 @@ CREATE TABLE `skill_effects` (
 
 LOCK TABLES `skill_effects` WRITE;
 /*!40000 ALTER TABLE `skill_effects` DISABLE KEYS */;
-INSERT INTO `skill_effects` VALUES (1,1,1),(2,2,15),(4,3,10),(5,3,11),(3,4,4),(6,5,3),(7,6,8),(11,6,9),(8,7,2),(9,8,7),(12,9,1),(13,9,15),(14,10,4),(15,10,16),(16,10,17),(17,11,8),(18,11,9),(19,11,15);
+INSERT INTO `skill_effects` VALUES (1,1,1),(2,2,15),(4,3,10),(5,3,11),(3,4,4),(6,5,3),(7,6,8),(11,6,9),(8,7,2),(9,8,7),(12,9,1),(13,9,15),(14,10,4),(15,10,16),(16,10,17),(17,11,8),(18,11,9),(19,11,15),(22,12,20),(20,13,18),(21,13,19),(23,14,21),(25,15,22),(26,15,23),(24,15,28),(27,16,1),(28,16,4),(29,17,1),(30,17,3),(33,18,24),(31,19,25),(32,20,26),(34,21,27);
 /*!40000 ALTER TABLE `skill_effects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -475,7 +476,7 @@ CREATE TABLE `skills` (
   `name` varchar(100) NOT NULL,
   `skillCategoryId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -484,7 +485,7 @@ CREATE TABLE `skills` (
 
 LOCK TABLES `skills` WRITE;
 /*!40000 ALTER TABLE `skills` DISABLE KEYS */;
-INSERT INTO `skills` VALUES (1,'アサルト',1),(2,'ディフェンダー',1),(3,'エクシード',1),(4,'ヴィゴラス',1),(5,'プライド',1),(6,'テクニカ',1),(7,'属性攻撃UP(140幻)',2),(8,'属性攻撃UP(英霊)',1),(9,'ストレングス',1),(10,'スプラウト',1),(11,'マグネタイト',1);
+INSERT INTO `skills` VALUES (1,'アサルト',1),(2,'ディフェンダー',1),(3,'エクシード',1),(4,'ヴィゴラス',1),(5,'プライド',1),(6,'テクニカ',1),(7,'属性攻撃UP(140幻)',2),(8,'属性攻撃UP(英霊)',3),(9,'ストレングス',1),(10,'スプラウト',1),(11,'マグネタイト',1),(12,'守護天使',2),(13,'カタス',2),(14,'エンハンス(カラミティ)',4),(15,'リッパートライエッジ',4),(16,'フローレス',1),(17,'リタリション',1),(18,'属性攻撃UP(100幻)',2),(19,'旺極',1),(20,'反極',1),(21,'属性攻撃UP(100幻光闇)',2);
 /*!40000 ALTER TABLE `skills` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -533,7 +534,7 @@ CREATE TABLE `weapons` (
   `maxAt` mediumint(9) NOT NULL,
   `weaponIdBeforeLimitBreak` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -542,7 +543,7 @@ CREATE TABLE `weapons` (
 
 LOCK TABLES `weapons` WRITE;
 /*!40000 ALTER TABLE `weapons` DISABLE KEYS */;
-INSERT INTO `weapons` VALUES (1,'水翼槍ドキマシアサリッサ',1,3,10,1,2,3,3,174,2280,0),(2,'水翼槍ドキマシアサリッサ',1,3,10,1,2,3,3,183,2394,1),(3,'水翼斧ドキマシアペレクス',5,3,9,1,2,3,4,114,2532,0),(4,'水翼斧ドキマシアペレクス',5,3,9,1,2,3,4,120,2659,3),(5,'水儀剣レメゲトンキー',8,4,0,0,2,3,2,204,2106,0),(6,'氷法剣アルゴノーツ',8,4,0,0,2,3,2,214,2705,6),(7,'双刀・摩武駄致',1,2,6,1,2,3,1,102,2898,0),(8,'双刀・摩武駄致',1,3,11,1,2,3,1,117,3333,7);
+INSERT INTO `weapons` VALUES (1,'水翼槍ドキマシアサリッサ',1,3,10,1,2,3,3,174,2280,0),(2,'水翼槍ドキマシアサリッサ',1,3,10,1,2,3,3,183,2394,1),(3,'水翼斧ドキマシアペレクス',5,3,9,1,2,3,4,114,2532,0),(4,'水翼斧ドキマシアペレクス',5,3,9,1,2,3,4,120,2659,3),(5,'水儀剣レメゲトンキー',8,4,0,0,2,3,2,204,2106,0),(6,'氷法剣アルゴノーツ',8,4,0,0,2,3,2,214,2705,6),(7,'双刀・摩武駄致',1,2,6,1,2,3,1,102,2898,0),(8,'双刀・摩武駄致',1,3,11,1,2,3,1,117,3333,7),(9,'幻災刃カラミティリッパー',14,1,15,3,7,3,2,162,2532,0),(10,'天羽々斬',16,2,19,1,5,3,2,240,2790,0),(11,'天羽々斬',16,3,19,1,5,3,2,288,3348,10),(12,'海難鎚シャルウル',16,2,19,1,2,3,6,198,2628,0),(13,'海難鎚シャルウル',16,3,19,1,2,3,6,238,3154,12),(14,'潮断斧クルッジ',17,2,20,1,2,3,4,198,2628,0),(15,'潮断斧クルッジ',17,3,20,1,2,3,4,238,3154,14);
 /*!40000 ALTER TABLE `weapons` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -618,4 +619,4 @@ USE `kamihime`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-03  3:12:29
+-- Dump completed on 2021-01-09  1:16:49
