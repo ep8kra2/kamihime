@@ -5,6 +5,10 @@ import {useListWeapon, useSelectedWeapon } from '../../state/calculate/selector'
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { calcurateSlice } from '../../state/calculate/slice';
+import { SelectedWeapon } from '../../state/calculate/type';
+import Select from '@material-ui/core/Select/Select';
+import MenuItem from '@material-ui/core/MenuItem/MenuItem';
+import { getWeaponAt, getWeaponHp } from '../../domain/weapon/service';
 
 export const SelectedWeaponList = () => {
   const [open, setOpen] = React.useState(false);
@@ -12,9 +16,40 @@ export const SelectedWeaponList = () => {
   const weaponList = useListWeapon();
   const selected = useSelectedWeapon();
 
+  const levelList = ():number[] => {
+    var item = [];
+    for (let i = 1; i <= 150 ; i++){
+      item.push(i)
+    }
+    return item;
+  }
+
+  const lookupLevelList = levelList().reduce((result:{[index: number] : number},row) => {
+    result[row] = Number(row)
+    return result
+  },{})
+
+  const skilllevelList = ():number[] => {
+    var item = [];
+    for (let i = 1; i <= 30 ; i++){
+      item.push(i)
+    }
+    return item;
+  }
+
+  const lookupSkillLevelList = skilllevelList().reduce((result:{[index: number] : number},row) => {
+    result[row] = Number(row)
+    return result
+  },{})
+
+
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleUpdate = (rowData:SelectedWeapon) => {
+    dispatch(calcurateSlice.actions.editWeapon(rowData))
+  }
 
   const handleClickOpen = (slot?:number) => {
     dispatch(calcurateSlice.actions.selectedWeapon(slot as number))
@@ -25,29 +60,58 @@ export const SelectedWeaponList = () => {
     <React.Fragment>
       <MaterialTable
         columns ={[
-          { title: 'slot', field: 'slot' },
+          { title: 'slot', field: 'slot', editable:'never' },
           { title: 'id', field: 'id', hidden:true},
-          { title: '武器', field: 'name' },
-          { title: 'スキル1', field: 'skill1'},
-          { title: 'スキル2', field: 'skill2'},
-          { title: 'HP', field: 'hp'},
-          { title: 'AT', field:'at'},
-          { title: 'level',field: 'level'},
-          { title: '備考', field:'marks'}
+          { title: '武器', field: 'weapon.name', editable:'never', render: ((rowData:SelectedWeapon) => {return (((rowData.weapon? rowData.weapon.weaponIdBeforeLimitBreak > 0 : false)? "☆" : "") + (rowData.weapon? rowData.weapon.name : ""))})},
+          { title: 'スキル1', field: 'weapon.slot1SkillName', editable:'never', render: ((rowData:SelectedWeapon) => {return (rowData.weapon? rowData.weapon.slot1PowerName + rowData.weapon.slot1SkillName : 0  )})},
+          { title: 'スキル2', field: 'weapon.slot2SkillName', editable:'never', render: ((rowData:SelectedWeapon) => {return (rowData.weapon? rowData.weapon.slot2PowerName + rowData.weapon.slot2SkillName : 0  )})},
+          { title: 'HP', field: 'weapon.maxHp', editable:'never', render: ((rowData:SelectedWeapon) => {return getWeaponHp(rowData.weapon,rowData.level).toFixed(0)})},
+          { title: 'AT', field:'weapon.maxAt', editable:'never', render: ((rowData:SelectedWeapon) => {return getWeaponAt(rowData.weapon,rowData.level).toFixed(0)})},
+          { title: 'スキルlv', field:'skillLevel',lookup: lookupSkillLevelList,
+            editComponent:(props) => {
+              return <Select value={props.rowData.skillLevel} onChange={e => {props.onChange(e.target.value)}}>
+              {
+                Object.values(lookupSkillLevelList).filter((value) => value <= (props.rowData.weapon?.weaponIdBeforeLimitBreak > 0 ? 30 : 20)).map((value) => {
+                  return(<MenuItem key={value} value={value}>{value}</MenuItem>)
+                })
+              }
+              </Select>              
+            }
+          },   
+          { title: 'level',field: 'level', lookup: lookupLevelList,
+            editComponent:(props) => {
+              return <Select value={props.rowData.level} onChange={e => {props.onChange(e.target.value)}}>
+              {
+                Object.values(lookupLevelList).filter((value) => value <= (props.rowData.weapon?.weaponIdBeforeLimitBreak > 0 ? 150 :  125)).map((value) => {
+                  return(<MenuItem key={value} value={value}>{value}</MenuItem>)
+                })
+              }
+              </Select>
+            }
+          },
+          { title: '備考', field:'marks', editable:'never'}
         ]}
           data={ weaponList.map((row) => {return {
-            slot:row.slot,
-            id:row.weapon?.id,
-            name: row.weapon === undefined ? '' : (row.weapon.weaponIdBeforeLimitBreak > 0 ? '☆覚醒☆' : '')  + row.weapon.name,
-            skill1:row.weapon === undefined ? '' : row.weapon.slot1PowerName + row.weapon.slot1SkillName,
-            skill2:row.weapon === undefined ? '' : row.weapon.slot2PowerName + row.weapon.slot2SkillName,
-            hp:row.weapon?.maxHp,
-            at:row.weapon?.maxAt,
-            level:row.level,
-            marks:row.marks
+            ...row
           }})
         }
+        editable={{
+          onRowUpdate: (newData, oldData) => new Promise((resolve, reject) => {
+            setTimeout(() => {
+              const dataUpdate = [...weaponList];
+              if(oldData === undefined){
+                reject();
+              }else{
+                const index = oldData.slot;
+                dataUpdate[index] = newData;
+                handleUpdate(newData);
+                resolve();
+              }
+            }, 1000)
+          })
+        }}
         options={{
+          actionsColumnIndex: -1,
           toolbar:false,
           filtering: false,
           search: false,

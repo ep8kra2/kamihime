@@ -16,7 +16,9 @@ export interface Weapon{
   typeName:string,
   rarityId:number,
   rarityName:string,  
+  minHp:number,
   maxHp:number,
+  minAt:number,
   maxAt:number,
   weaponIdBeforeLimitBreak:number
 }

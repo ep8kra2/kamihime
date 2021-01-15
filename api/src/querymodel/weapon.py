@@ -21,7 +21,9 @@ class Weapon(db.Model):
   rarityName = db.Column(db.String(100))
   typeId = db.Column(db.Integer)
   typeName = db.Column(db.String(100))
+  minHp = db.Column(db.Integer)
   maxHp = db.Column(db.Integer)
+  minAt = db.Column(db.Integer)
   maxAt = db.Column(db.Integer)
   weaponIdBeforeLimitBreak = db.Column(db.Integer)
 

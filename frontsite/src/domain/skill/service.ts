@@ -14,7 +14,7 @@ export const getSkillListFromSelectedWeaponList = (selectedWeaponList:SelectedWe
         phantom:{} as Phantom,
         powerId:row.weapon.slot1PowerId,
         elementId:row.weapon.elementId, 
-        level:row.level,
+        level:row.skillLevel,
         skillType:1
       })
     }
@@ -26,7 +26,7 @@ export const getSkillListFromSelectedWeaponList = (selectedWeaponList:SelectedWe
         phantom:{} as Phantom,
         powerId:row.weapon.slot2PowerId,
         elementId:row.weapon.elementId, 
-        level:row.level,
+        level:row.skillLevel,
         skillType:1})
     }
 
@@ -55,7 +55,8 @@ export const getPhantomMainSkillListFromPhantomList = (selectedPhantomList:Selec
 
 export const getPhantomSubSkillListFromPhantomList = (selectedPhantomList:SelectedPhantom[],skillList:Skill[]):SelectedSkill[] => {
   return selectedPhantomList.filter((fil) => fil.slot >= 3 ).reduce((result,row) => {
-    if(row.phantom === undefined) { return result}
+    if(row.phantom === undefined) { return result};
+    if(result.find((row) => row.skill.id === row.phantom.subSkillId) !== undefined) { return result};
     const subskill = skillList.find((fl) => fl.id === row.phantom.subSkillId)
     result.push({slot:row.slot,
       skill: subskill? subskill : {} as Skill,
@@ -65,8 +66,7 @@ export const getPhantomSubSkillListFromPhantomList = (selectedPhantomList:Select
       elementId:row.phantom.elementId, 
       level:row.rank,
       skillType:3})
-    
-      console.log(result)
+
     return result
   },[] as SelectedSkill[] )
 

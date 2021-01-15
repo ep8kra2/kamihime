@@ -8,16 +8,4 @@ class EffectService:
   def update(effect_new,update):
     return update(effect_new)
 
-  def insert_level(rowData,insert):
-    return insert(rowData)
-
-  def update_level(rowData,update):
-    return update(rowData)
-
-  def insert_level_detail(rowData,insert):
-    return insert(rowData)
-
-  def update_level_detail(rowData,update):
-    return update(rowData)
-
     

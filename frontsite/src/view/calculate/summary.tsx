@@ -7,6 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Normal from './normal';
+import Barst from './barst';
 
 const useStyles = makeStyles((theme:Theme) => ({
   paper: {
@@ -42,11 +43,11 @@ function TabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box p={3} className={classes.box}>
+        <Box p={2} className={classes.box}>
           <Typography>{children}</Typography>
         </Box>
       )}
-    </div>
+    </div>　　　　　　　　　　　　
   );
 }
 
@@ -71,17 +72,13 @@ export const Summary = () => {
         <Tabs value={value} onChange={handleChange} aria-label="summaryLabel">
           <Tab label="通常攻撃" {...a11yProps(0)} />
           <Tab label="バースト" {...a11yProps(1)} />
-          <Tab label="アビリティ" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
         <Normal />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
+        <Barst />
       </TabPanel>
     </Paper>
   )

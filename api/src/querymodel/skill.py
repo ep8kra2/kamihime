@@ -7,6 +7,7 @@ class Skill(db.Model):
 
   id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   name = db.Column(db.String(100))
+  elements = db.Column(db.String(100))
   skillCategoryId = db.Column(db.Integer)
   skillCategoryName = db.Column(db.String(100))
 

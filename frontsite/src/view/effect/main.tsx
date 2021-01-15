@@ -6,12 +6,11 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Effect } from '../../state/effect/type';
 import { fetchAsyncList,fetchAsyncInsert,fetchAsyncUpdate } from '../../state/effect/operation';
-import { fetchAsyncList as fetchAsyncCategoryList } from '../../state/category/operation';
+import { fetchAsyncList as fetchAsyncCalculationList } from '../../state/calculation/operation';
+import { fetchAsyncList as fetchAsyncImpactList } from '../../state/impact/operation';
 import { useList } from '../../state/effect/selector';
-import { useList as useCategoryList } from '../../state/category/selector';
 import { useList as useImpactList } from '../../state/impact/selector';
-import { AppDispatch } from '../../app/store';
-
+import { useList as useCalculationList } from '../../state/calculation/selector';
 
 const useStyles = makeStyles((theme:Theme) => ({
   container: {
@@ -29,21 +28,21 @@ const useStyles = makeStyles((theme:Theme) => ({
 
 export const Main = () => {
   const classes = useStyles();
-  const dispatch:AppDispatch = useDispatch()
+  const dispatch = useDispatch()
   React.useEffect(() => {
     const promise = async () => {
       await dispatch(fetchAsyncList())
-      await dispatch(fetchAsyncCategoryList())
+      await dispatch(fetchAsyncImpactList())
+      await dispatch(fetchAsyncCalculationList())
     }
     promise();
   }, [dispatch])
 
   const effectList = useList().map((row) => {return({...row})}) as Effect[];
 
-  const categoryList = useCategoryList();
-  console.log(categoryList)
+  const calculationList = useCalculationList();
   const impactList = useImpactList();
-  const lookupCategoryList = categoryList.reduce((result:any,row) => {
+  const lookupCalculationList = calculationList.reduce((result:any,row) => {
     result[row.id] = row.name
     return result
   },{});
@@ -77,12 +76,10 @@ export const Main = () => {
             columns ={[
               { title: 'id', field: 'id', editable:'never' },
               { title: '効果名', field: 'name' },
-              { title: 'カテゴリ', field: 'categoryId', 
-                lookup: lookupCategoryList
-              },
               { title: '影響', field: 'impactId', 
-                lookup: lookupImpactList, 
-              }
+                lookup: lookupImpactList
+              },
+              { title: '計算式', field:'calculationId',lookup: lookupCalculationList}
             ]}
             data={ effectList }
             editable={{

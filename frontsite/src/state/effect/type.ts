@@ -6,16 +6,14 @@ export type Effect = {
   categoryName:string,
   impactId:number,
   impactName:string,
-  calcurate:string
-}
-
-export type EffectPower = {
-  id: number,
-  effectId: number,
-  effectName:string,
-  elementId:number,
-  slot:number,
-  power:number
+  impactTypeId:number,
+  impactTypeName:string,
+  limitValue:number,
+  calculationId:number,
+  calculationName:string,
+  expressionName:string,
+  expression:string,
+  marks:string
 }
 
 export type EffectState = {

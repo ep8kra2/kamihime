@@ -14,7 +14,9 @@ class Weapon(db.Model):
   elementId = db.Column(db.Integer)
   rarityId = db.Column(db.Integer)
   typeId = db.Column(db.Integer)
+  minHp = db.Column(db.Integer)
   maxHp = db.Column(db.Integer)
+  minAt = db.Column(db.Integer)
   maxAt = db.Column(db.Integer)
   weaponIdBeforeLimitBreak = db.Column(db.Integer)
 
@@ -28,7 +30,9 @@ class Weapon(db.Model):
       elementId =  rowData['elementId'],
       rarityId =  rowData['rarityId'],
       typeId =  rowData['typeId'],
+      minHp =  rowData['minHp'],
       maxHp =  rowData['maxHp'],
+      minAt =  rowData['minAt'],
       maxAt =  rowData['maxAt'],
       weaponIdBeforeLimitBreak =  rowData['weaponIdBeforeLimitBreak'] if 'weaponIdBeforeLimitBreak' in rowData else 0
     )
@@ -46,41 +50,15 @@ class Weapon(db.Model):
     record.elementId =  rowData['elementId']
     record.rarityId =  rowData['rarityId']
     record.typeId =  rowData['typeId']
+    record.minHp =  rowData['minHp']
     record.maxHp =  rowData['maxHp']
+    record.minAt =  rowData['minAt']
     record.maxAt =  rowData['maxAt']
     record.weaponIdBeforeLimitBreak = rowData['weaponIdBeforeLimitBreak']
     db.session.add(record)
     db.session.commit()
 
     return 'success'
-
-class WeaponList(db.Model):
-  __tablename__ = 'weaponlist'
-
-  id = db.Column(db.Integer, primary_key=True)
-  name = db.Column(db.String(100))
-  slot1SkillId = db.Column(db.Integer)
-  slot1SkillName = db.Column(db.String(100))
-  slot1PowerId = db.Column(db.Integer)
-  slot1PowerName = db.Column(db.String(100))
-  slot2SkillId = db.Column(db.Integer)
-  slot2SkillName = db.Column(db.String(100))
-  slot2PowerId = db.Column(db.Integer)
-  slot2PowerName = db.Column(db.String(100))
-  elementId = db.Column(db.Integer)
-  elementName = db.Column(db.String(100))
-  rarityId = db.Column(db.Integer)
-  rarityName = db.Column(db.String(100))
-  typeId = db.Column(db.Integer)
-  typeName = db.Column(db.String(100))
-  maxHp = db.Column(db.Integer)
-  maxAt = db.Column(db.Integer)
-  weaponIdBeforeLimitBreak = db.Column(db.Integer)
-
-  def get_list():
-    records =  db.session.query(WeaponList).order_by(WeaponList.id.desc()).all()
-    print(records)
-    return list(map(lambda row: WeaponValue(**to_dict_from_sql_record(row)) , records))
 
 
 

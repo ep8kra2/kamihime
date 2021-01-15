@@ -1,6 +1,5 @@
 import { configureStore, ThunkAction, Action, getDefaultMiddleware } from '@reduxjs/toolkit';
 import effectSlice from '../state/effect/slice';
-import effectLevelSlice from '../state/effectlevel/slice';
 import weaponSlice from '../state/weapon/slice';
 import skillSlice from '../state/skill/slice';
 import categorySlice from '../state/category/slice';
@@ -20,7 +19,6 @@ export const store = configureStore({
     skill: skillSlice.reducer,
     weapon: weaponSlice.reducer,
     effect: effectSlice.reducer,
-    effectLevel: effectLevelSlice.reducer,
     category: categorySlice.reducer,
     impact: impactSlice.reducer,
     power: powerSlice.reducer,

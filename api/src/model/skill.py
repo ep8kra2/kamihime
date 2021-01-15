@@ -7,11 +7,13 @@ class Skill(db.Model):
   id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   name = db.Column(db.String(100))
   skillCategoryId = db.Column(db.Integer)
+  elements = db.Column(db.String(100))
 
   def insert(rowData):
     record = Skill(
       name = rowData['name'],
-      skillCategoryId = rowData['skillCategoryId']
+      skillCategoryId = rowData['skillCategoryId'],
+      elements = rowData['elements']
     )
 
     db.session.add(record)
@@ -23,6 +25,7 @@ class Skill(db.Model):
     record = db.session.query(Skill).filter(Skill.id==rowData['id']).first()
     record.name = rowData['name']
     record.skillCategoryId = rowData['skillCategoryId']
+    record.elements = rowData['elements']
 
     db.session.add(record)
     db.session.commit()

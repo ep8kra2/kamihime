@@ -18,6 +18,8 @@ class WeaponValue:
   rarityName:str
   typeId:int
   typeName:str
+  minHp:int
   maxHp:int
+  minAt:int
   maxAt:int
   weaponIdBeforeLimitBreak:int

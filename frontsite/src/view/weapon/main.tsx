@@ -114,7 +114,7 @@ export const Main = () => {
             title="一覧"
             columns ={[
               { title: 'id', field: 'id', editable:'never' },
-              { title: '名称', field: 'name',render:rowData => rowData.weaponIdBeforeLimitBreak > 0 ? '☆覚醒☆' + rowData.name : rowData.name },
+              { title: '名称', field: 'name',render:rowData => rowData.weaponIdBeforeLimitBreak > 0 ? '☆' + rowData.name : rowData.name },
               { title: '武器種', field: 'typeId', lookup:lookupWeaponTypeList },
               { title: '属性', field: 'elementId', lookup:lookupElementList },
               { title: 'ﾚｱﾘﾃｨ', field: 'rarityId', lookup:lookupRarityList },
@@ -122,8 +122,10 @@ export const Main = () => {
               { title: 'スキル1', field: 'slot1SkillId', lookup:lookupSkillList },
               { title: 'スキル2威力', field: 'slot2PowerId', lookup:lookupPowerList },
               { title: 'スキル2', field: 'slot2SkillId' , lookup:lookupSkillList},
-              { title: 'HP', field: 'maxHp',type:"numeric"},
-              { title: 'AT', field: 'maxAt',type:"numeric"},
+              { title: 'MINHP', field: 'minHp',type:"numeric"},
+              { title: 'MAXHP', field: 'maxHp',type:"numeric"},
+              { title: 'MINAT', field: 'minAt',type:"numeric"},
+              { title: 'MAXAT', field: 'maxAt',type:"numeric"},
               { title: '覚醒',field: 'weaponIdBeforeLimitBreak', 
                 lookup:lookupWeaponList,
                 editComponent:(props) => {

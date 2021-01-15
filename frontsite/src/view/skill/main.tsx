@@ -10,6 +10,7 @@ import { fetchAsyncList,fetchAsyncInsert,fetchAsyncUpdate } from '../../state/sk
 import { useList,useSelected } from '../../state/skill/selector';
 import { AppDispatch } from '../../app/store';
 import DetailDialog from './EffectDialog';
+import { useCalculationMatchElementList } from '../../domain/expression/service';
 
 const useStyles = makeStyles((theme:Theme) => ({
   container: {
@@ -43,6 +44,11 @@ export const Main = () => {
     3:"英霊武器",
     4:"幻武器"
   }
+  const lookupElementsList = useCalculationMatchElementList.reduce((result,row) => {
+    result[row.key] = row.key
+    return result
+  },{} as {[key:string]:string});
+
 
   const handleInsert = (rowData:Skill) => {
     const promise = async () => {
@@ -77,7 +83,8 @@ export const Main = () => {
             columns ={[
               { title: 'id', field: 'id', editable:'never' },
               { title: 'スキル名', field: 'name' },
-              { title: 'スキル分類', field: 'skillCategoryId', lookup: lookupSkillCategoryList}
+              { title: 'スキル分類', field: 'skillCategoryId', lookup: lookupSkillCategoryList},
+              { title: '対象属性', field:'elements', lookup: lookupElementsList }
             ]}
             data={ list }
             editable={{

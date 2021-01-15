@@ -6,6 +6,7 @@ class SkillValue:
   name: str
   skillCategoryId: int
   skillCategoryName: str
+  elements: str
 
 @dataclasses.dataclass(frozen=True)
 class SkillEffectValue:

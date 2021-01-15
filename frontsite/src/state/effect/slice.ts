@@ -1,5 +1,5 @@
 import { createSlice,PayloadAction } from '@reduxjs/toolkit';
-import { Effect,EffectState,EffectPower } from './type';
+import { Effect,EffectState } from './type';
 import { 
   fetchAsyncList,
   fetchAsyncInsert,

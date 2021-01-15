@@ -9,3 +9,11 @@ export type Expression =  (effect:SelectedEffect,effectList:SelectedEffect[],par
 export type ExpressionSkillEnhance = (effect:SelectedEffect) => ReturnSkillEnhance;
 
 export type ExpressionWeaponEnhance = (effect:SelectedEffect) => ReturnWeaponEnhance;
+
+export type ExpressionMatchElement = (effect:SelectedEffect,targetOfElementId:number) => boolean;
+
+export type CoefficientAndConstant = {
+  powerId:number,
+  coefficient:number,
+  constant:number
+}

@@ -8,6 +8,7 @@ export type SelectedWeapon = {
   slot:number,
   weapon:Weapon,
   level:number,
+  skillLevel:number,
   marks:string
 }
 
@@ -27,6 +28,8 @@ export type Parameter = {
   attack:number,
   hp:number,
   hpRate:number,
+  barstRate:number,
+  barstLimitUp:number,
   enemyDefence:number,
   debufferDefence:number
 }
@@ -61,7 +64,8 @@ export type SelectedEffect = {
   impactValue:number,
   skillType:number,
   skillEnhance?:ReturnSkillEnhance,
-  weaponEnhance?:ReturnWeaponEnhance
+  weaponEnhance?:ReturnWeaponEnhance,
+  matchElement?:(elementId:number) => boolean
 }
 
 export type CalcurateState = {

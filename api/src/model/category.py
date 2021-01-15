@@ -11,7 +11,6 @@ class Category(db.Model):
 
   def get_list():
     lists =  db.session.query(Category).order_by(Category.id.asc()).all()
-
     return list(map(lambda row: CategoryValue(**to_dict_from_sql_record(row)), lists))
 
   def insert(category_new):

@@ -126,6 +126,26 @@ export const Etc = () => {
           />
         </FormControl>
         <FormControl className={classes.formControl}>
+          <InputLabel shrink id="labelBarstRate">バースト倍率</InputLabel>
+          <Input 
+            className={classes.selectEmpty}
+            id="inputBarstRate" 
+            type="number"
+            value={parameter.barstRate}
+            onChange={e => handleOnChange('barstRate',e.target.value)}  
+          />
+        </FormControl>
+        <FormControl className={classes.formControl}>
+          <InputLabel shrink id="labelBarstLimitUp">バースト上限</InputLabel>
+          <Input 
+            className={classes.selectEmpty}
+            id="inputBarstLimitUp" 
+            type="number"
+            value={parameter.barstLimitUp}
+            onChange={e => handleOnChange('barstLimitUp',e.target.value)}  
+          />
+        </FormControl>
+        <FormControl className={classes.formControl}>
           <InputLabel shrink id="labelHpRate">残HP(%)</InputLabel>
           <Input 
             className={classes.selectEmpty}

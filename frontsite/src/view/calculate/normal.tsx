@@ -3,7 +3,8 @@ import MaterialTable from 'material-table';
 import { useAttackNormal, useParameter } from '../../state/calculate/selector';
 import { useList as useImpactList } from '../../state/impact/selector';
 import { Attack } from '../../state/calculate/type';
-import { getRealValueNormal, getUncontrolledValue } from '../../domain/calculate/service';
+import { getUncontrolledValue } from '../../domain/calculate/service';
+import { getRealValue } from '../../domain/calculate/normal/service';
 
 
 export const Normal = () => {
@@ -37,7 +38,7 @@ export const Normal = () => {
     })
   
     const limitBreakValue = (limitBreak === undefined)? 0 : Number(limitBreak[1])
-    return getRealValueNormal(uncontrolledValue(rowData),limitBreakValue)
+    return getRealValue(uncontrolledValue(rowData),limitBreakValue)
   }
 
 

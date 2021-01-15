@@ -28,7 +28,17 @@ const initialCalcurateState: CalcurateState = {
     {...{} as SelectedPhantom,slot:7},
 
   ] as SelectedPhantom[],
-  parameter:{playerRank:1,elementId:1, goodAtWeapon1:1, goodAtWeapon2:0, attack:1,hp:1,hpRate:100,enemyDefence:10,debufferDefence:0} as Parameter
+  parameter:{playerRank:1,
+    elementId:1, 
+    goodAtWeapon1:1, 
+    goodAtWeapon2:0, 
+    attack:1,
+    hp:1,
+    barstRate:5.5,
+    barstLimitUp:0,
+    hpRate:100,
+    enemyDefence:10,
+    debufferDefence:0} as Parameter
 }
 
 export const calcurateSlice = createSlice({
@@ -39,7 +49,8 @@ export const calcurateSlice = createSlice({
       state.listWeapon[action.payload.slot-1] = {
         ...state.listWeapon[action.payload.slot-1],
         weapon: action.payload.weapon,
-        level:action.payload.weapon.weaponIdBeforeLimitBreak > 0 ? 30 : 20
+        skillLevel:action.payload.weapon.weaponIdBeforeLimitBreak > 0 ? 30 : 20,
+        level:action.payload.weapon.weaponIdBeforeLimitBreak > 0 ? 150 : 125
       }
       return state
     },
@@ -49,6 +60,13 @@ export const calcurateSlice = createSlice({
     },
     deleteWeapon: (state:CalcurateState, action:PayloadAction<number>) => {
       state.listWeapon[action.payload - 1] = {...{} as SelectedWeapon,slot:action.payload,marks:state.listWeapon[action.payload - 1].marks}
+      return state
+    },
+    editWeapon: (state:CalcurateState,action:PayloadAction<SelectedWeapon>) => {
+      state.listWeapon[action.payload.slot-1] = {
+        ...state.listWeapon[action.payload.slot-1],
+        level:action.payload.level
+      }
       return state
     },
     changedPhantom: (state:CalcurateState,action:PayloadAction<{slot:number,phantom:Phantom}>) => {

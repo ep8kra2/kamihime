@@ -10,10 +10,6 @@ import {
   fetchAsyncUpdate 
 } from '../../state/calculation/operation';
 import { useList } from '../../state/calculation/selector';
-import { fetchAsyncList as fetchAsyncEffectList} from '../../state/effect/operation';
-import { useList as useEffectList} from '../../state/effect/selector';
-import { fetchAsyncList as fetchAsyncPowerList} from '../../state/power/operation';
-import { useList as usePowerList} from '../../state/power/selector';
 import { Calculation } from '../../state/calculation/type';
 
 const useStyles = makeStyles((theme:Theme) => ({
@@ -36,25 +32,11 @@ export const Main = () => {
   React.useEffect(() => {
     const promise = async () => {
       await dispatch(fetchAsyncList())
-      await dispatch(fetchAsyncEffectList())
-      await dispatch(fetchAsyncPowerList())
     }
     promise();
   }, [dispatch])
 
   const calcurateList = useList().map((row) => {return {...row}});
-  const effectList = useEffectList();
-  const powerList = usePowerList();
-
-  const lookupEffectList = effectList.reduce((result:any,row) => {
-    result[row.id] = row.name
-    return result
-  },{})
-  
-  const lookupPowerList = powerList.reduce((result:any,row) => {
-    result[row.id] = row.name
-    return result
-  },{})
 
   const handleInsert = (rowData:Calculation) => {
     const promise = async () => {
@@ -77,12 +59,10 @@ export const Main = () => {
       <Grid item xs={12} md={12} lg={12}>
         <Paper className={classes.paper}>
           <MaterialTable
-            title="計算式一覧 *そのうち即時反映出来るよう作り変えます"
+            title="計算式一覧"
             columns ={[
               { title: 'id', field: 'id', editable:'never' },
               { title: '計算名', field: 'name'},
-              { title: '効果', field: 'effectId', lookup: lookupEffectList },
-              { title: '威力', field: 'powerId', lookup: lookupPowerList },
               { title: '式名', field : 'expressionName' },
               { title: '式'  ,field: 'expression'},
               { title: '備考'  ,field: 'marks'},
