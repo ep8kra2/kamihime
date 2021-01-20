@@ -6,9 +6,9 @@ export const subSkill5AttackUp:Expression= (effect:SelectedEffect,effectList:Sel
 }
 
 export const subSkill10AttackUp:Expression= (effect:SelectedEffect,effectList:SelectedEffect[],parameter:Parameter):number => {
-  return 5
+  return 10
 }
 
 export const subSkill20AttackUp:Expression= (effect:SelectedEffect,effectList:SelectedEffect[],parameter:Parameter):number => {
-  return 5
+  return 20
 }
