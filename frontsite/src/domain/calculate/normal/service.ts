@@ -1,38 +1,17 @@
-import { Parameter, SelectedEffect, SelectedWeapon, SelectedPhantom, Attack } from "../../../state/calculate/type";
-import { Impact } from "../../../state/impact/type";
-import {Element} from '../../../state/element/type';
-import { getInitAttackList, isSkillEnhance, isWeaponEnhance, resultAttackFromSelectedWeaponList, updateAttackListFromPhantomList, updateAttackListFromWeaponList } from "../service";
+import { Attack, Parameter } from "../../../state/calculate/type";
+import { getUncontrolledValue } from "../service";
 
 // 通常攻撃リストに含めるのか？
-const isNormal = (categoryId:number) => {
+export const isNormal = (categoryId:number) => {
   return categoryId === 1 || categoryId === 2 ? true : false;
-}
-
-// 通常攻撃リストを返します
-export const resultNormalAttackList = (parameter:Parameter, effectList:SelectedEffect[],impactList:Impact[],elementList:Element[],weaponList:SelectedWeapon[],phantomList:SelectedPhantom[]):Attack[] => {
-  const effectNormalList = effectList.filter((row) => isNormal(row.effect.categoryId))
-  const initAttackNormal = impactList.reduce((result,row) => {
-    if(isNormal(row.categoryId)){
-      result[row.name] = 0
-    }
-    return result;
-  },{} as Attack )
-
-  // 影響値をセット
-  const skillEnhanceList = effectList.filter((row) => isSkillEnhance(row.effect.categoryId))
-  const weaponEnhanceList = effectList.filter((row) => isWeaponEnhance(row.effect.categoryId))
-  const attackList = getInitAttackList(initAttackNormal,parameter,elementList)
-  const attackListWithWeapon = updateAttackListFromWeaponList(attackList,weaponList,parameter,weaponEnhanceList)
-  const attackListWithWeaponAndPhantom = updateAttackListFromPhantomList(attackListWithWeapon,phantomList,parameter)
-  return resultAttackFromSelectedWeaponList(attackListWithWeaponAndPhantom,effectNormalList,skillEnhanceList)
 }
 
 // 減衰後の数値を算出します
 export const getRealValue = (uncontrolledValue:number,limitBreakRate:number) => {
   // 第1減衰
-  const firstLimit = (350000 * (1 + limitBreakRate / 100))
-  const secondLimit = (450000 * (1 + limitBreakRate / 100))
-  const thirdLimit = (550000 * (1 + limitBreakRate / 100))
+  const firstLimit = (350000 * (1 + limitBreakRate ))
+  const secondLimit = (450000 * (1 + limitBreakRate ))
+  const thirdLimit = (550000 * (1 + limitBreakRate ))
   const firstAttenuation = 0.5
   const secondAttenuation = 0.25
   const thirdAttenuation = 0.125
@@ -59,4 +38,28 @@ export const getRealValue = (uncontrolledValue:number,limitBreakRate:number) => 
 
   // 第3減衰適用後数値
   return (thirdLimit + (secondLimitValue - thirdLimit) * thirdAttenuation)
+}
+
+  // 総合攻撃力
+  export const resultValue = (rowData:Attack) => {
+    return rowData.values.filter((row) => isNormal(row.categoryId) && row.impactTypeId === 1).reduce((result,row) => {
+      result = result * (row.name === "攻撃"? Number(row.value) :1 + Number(row.value) / 100)
+      return result
+    },1 )
+  }
+
+// 減衰前ダメージ
+export const uncontrolledValue = (rowData:Attack,parameter:Parameter):number => {
+  return getUncontrolledValue(resultValue(rowData),parameter)
+}
+
+// 減衰後ダメージ
+export const realValue = (rowData:Attack,parameter:Parameter):number => {
+  const limitBreak = rowData.values.filter((row) => isNormal(row.categoryId) && row.impactTypeId === 3).reduce((result,row) => {
+    result =  (Number(row.value) / 100)
+    return result
+  },0 )
+
+  const limitBreakValue = (limitBreak === undefined)? 0 : Number(limitBreak)
+  return getRealValue(uncontrolledValue(rowData,parameter),limitBreakValue)
 }

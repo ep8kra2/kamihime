@@ -74,7 +74,6 @@ export const SelectedPhantomList = () => {
                   })
                 }
               </Select>              
-
             }
           },        
           { title: 'level',field: 'level', type:'numeric', lookup: lookupLevelList,

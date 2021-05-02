@@ -1,7 +1,9 @@
 import { Parameter, SelectedEffect, SelectedPhantom, SelectedWeapon } from "../../state/calculate/type";
+import { ascensionLimitUp, ascensionUp } from "./ascension/service";
 import { assaultAttackUp } from "./assault/service";
 import { calamityAttackUp, calamityWeaponEnhance } from "./calamity/service";
 import { catasAttackUp, catasSkillEnhance } from "./catas/service";
+import { defender } from "./defender/service";
 import { exceedBarstAttackUp, exceedBarstLimitUp } from "./exceed/service";
 import { guardianSkillEnhance } from "./guardian/service";
 import { hiroicAttackUp } from "./hiroic/service";
@@ -45,7 +47,10 @@ export const useCalculationList = [
   {key:"subSkill10AttackUp",value:subSkill10AttackUp},
   {key:"subSkill20AttackUp",value:subSkill20AttackUp},
   {key:"stingerRateUp",value:stingerRateUp},
-  {key:"stingerExpectation",value:stingerExpectation}
+  {key:"stingerExpectation",value:stingerExpectation},
+  {key:"defender",value:defender},
+  {key:"ascensionUp",value:ascensionUp},
+  {key:"ascensionLimitUp",value:ascensionLimitUp}
 ]
 
 export const resultExpression = (expressionName:string,effect:SelectedEffect,effectList:SelectedEffect[],parameter:Parameter,weaponList?:SelectedWeapon[],phantomList?:SelectedPhantom[]):number => {

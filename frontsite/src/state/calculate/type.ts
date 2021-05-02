@@ -20,25 +20,32 @@ export type SelectedPhantom = {
   marks:string
 }
 
+export type EffectValue = {
+  name:string,
+  categoryId:number,
+  impactTypeId:number,
+  value:number
+}
+
 export type Parameter = {
-  playerRank:number,
-  elementId:number,
-  goodAtWeapon1:number,
-  goodAtWeapon2:number,
-  attack:number,
-  hp:number,
-  hpRate:number,
-  barstRate:number,
-  barstLimitUp:number,
-  enemyDefence:number,
-  debufferDefence:number
+  [key:string]:EffectValue,
+  playerRank:EffectValue,
+  elementId:EffectValue,
+  goodAtWeapon1:EffectValue,
+  goodAtWeapon2:EffectValue,
+  hpRate:EffectValue,
+  enemyDefence:EffectValue,
+  debufferDefence:EffectValue,
+  attack:EffectValue,
+  hp:EffectValue,
+  barstRate:EffectValue,
+  barstLimitUp:EffectValue,
 }
 
 export type Attack = { 
-  [index: string] : string | number,
   elementId:number,
   elementName:string,
-  attack:number 
+  values:EffectValue[]
 };
 
 export type SelectedSkill = {

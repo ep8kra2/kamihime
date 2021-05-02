@@ -60,8 +60,9 @@ export const Etc = () => {
   const handleOnChange = (name:string,value:string) => {
     const newParameter = {
       ...parameter,
-      [name]:Number(value)
+      [name]:{...parameter[name],value:Number(value)}
     } as Parameter
+    console.log(newParameter)
     dispatch(calcurateSlice.actions.setParameter(newParameter))
   }
 
@@ -72,8 +73,8 @@ export const Etc = () => {
           <InputLabel shrink id="labelElementId">神姫属性</InputLabel>
           <Select
             id="selectElementId"
-            value={parameter.elementId}
-            onChange={e => {handleOnChange('elementId',e.target.value as string)}}
+            value={parameter.elementId.value}
+            onChange={e => {handleOnChange('elementId',e.target.value as string )}}
             displayEmpty
             className={classes.selectEmpty}
           >
@@ -84,7 +85,7 @@ export const Etc = () => {
           <InputLabel shrink id="labelgoodAtWeapon1">神姫得意武器1</InputLabel>
           <Select
             id="selectgoodAtWeapon1"
-            value={parameter.goodAtWeapon1}
+            value={parameter.goodAtWeapon1.value}
             onChange={e => {handleOnChange('goodAtWeapon1',e.target.value as string)}}
             displayEmpty
             className={classes.selectEmpty}
@@ -96,7 +97,7 @@ export const Etc = () => {
           <InputLabel shrink id="labelgoodAtWeapon2">神姫得意武器2</InputLabel>
           <Select
             id="selectgoodAtWeapon2"
-            value={parameter.goodAtWeapon2}
+            value={parameter.goodAtWeapon2.value}
             onChange={e => {handleOnChange('goodAtWeapon2',e.target.value as string)}}
             displayEmpty
             className={classes.selectEmpty}
@@ -111,8 +112,8 @@ export const Etc = () => {
             className={classes.selectEmpty}
             id="inputAttack" 
             type="number"
-            value={parameter.attack}
-            onChange={e => handleOnChange('attack',e.target.value)}  
+            value={parameter.attack.value === 0? "" : parameter.attack.value}
+            onChange={e => handleOnChange('attack',e.target.value )}  
           />
         </FormControl>
         <FormControl className={classes.formControl}>
@@ -121,18 +122,18 @@ export const Etc = () => {
             className={classes.selectEmpty}
             id="inputHp" 
             type="number"
-            value={parameter.hp}
-            onChange={e => handleOnChange('hp',e.target.value)}  
+            value={parameter.hp.value === 0? "" : parameter.hp.value }
+            onChange={e => handleOnChange('hp',e.target.value )}  
           />
         </FormControl>
         <FormControl className={classes.formControl}>
-          <InputLabel shrink id="labelBarstRate">バースト倍率</InputLabel>
+          <InputLabel shrink id="labelBarstRate">バースト倍率(%)</InputLabel>
           <Input 
             className={classes.selectEmpty}
             id="inputBarstRate" 
             type="number"
-            value={parameter.barstRate}
-            onChange={e => handleOnChange('barstRate',e.target.value)}  
+            value={parameter.barstRate.value === 0? "" : parameter.barstRate.value }
+            onChange={e => handleOnChange('barstRate',e.target.value )}  
           />
         </FormControl>
         <FormControl className={classes.formControl}>
@@ -141,8 +142,8 @@ export const Etc = () => {
             className={classes.selectEmpty}
             id="inputBarstLimitUp" 
             type="number"
-            value={parameter.barstLimitUp}
-            onChange={e => handleOnChange('barstLimitUp',e.target.value)}  
+            value={parameter.barstLimitUp.value === 0? "" : parameter.barstLimitUp.value }
+            onChange={e => handleOnChange('barstLimitUp',e.target.value )}  
           />
         </FormControl>
         <FormControl className={classes.formControl}>
@@ -151,8 +152,8 @@ export const Etc = () => {
             className={classes.selectEmpty}
             id="inputHpRate"
             type="number" 
-            value={parameter.hpRate}
-            onChange={e => handleOnChange('hpRate',e.target.value)}  
+            value={parameter.hpRate.value === 0? "" : parameter.hpRate.value }
+            onChange={e => handleOnChange('hpRate',e.target.value )}  
           />
         </FormControl>
         <FormControl className={classes.formControl}>
@@ -161,8 +162,8 @@ export const Etc = () => {
             className={classes.selectEmpty}
             id="inputEnemyDefence"
             type="number" 
-            value={parameter.enemyDefence}
-            onChange={e => handleOnChange('enemyDefence',e.target.value)}  
+            value={parameter.enemyDefence.value === 0? "" : parameter.enemyDefence.value }
+            onChange={e => handleOnChange('enemyDefence',e.target.value )}  
           />
         </FormControl>
         <FormControl className={classes.formControl}>
@@ -171,8 +172,8 @@ export const Etc = () => {
             className={classes.selectEmpty}
             id="inputDebuf"
             type="number" 
-            value={parameter.debufferDefence}
-            onChange={e => handleOnChange('debufferDefence',e.target.value)}  
+            value={parameter.debufferDefence.value === 0? "" : parameter.debufferDefence.value }
+            onChange={e => handleOnChange('debufferDefence',e.target.value )}  
           />
         </FormControl>
       </Paper>

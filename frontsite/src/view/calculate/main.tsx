@@ -13,6 +13,7 @@ import { fetchAsyncListEffect as fetchAsyncSkillEffectList } from '../../state/s
 import { fetchAsyncList as fetchAsyncSkillList } from '../../state/skill/operation';
 import Summary from './summary';
 import Setting from './setting';
+import { useResultCalculate } from '../../state/calculate/selector';
 
 const useStyles = makeStyles((theme:Theme) => ({
   container: {
@@ -33,6 +34,9 @@ export const Main = ():JSX.Element => {
   const classes = useStyles();
   const dispatch:AppDispatch = useDispatch()
 
+  const resultCalculate = useResultCalculate();
+  console.log(resultCalculate)
+
   React.useEffect(() => {
     const promise = async() => {
       await dispatch(fetchAsyncWeaponList());
@@ -50,7 +54,7 @@ export const Main = ():JSX.Element => {
     <Grid container className={classes.container}>
       <Grid item xs={12} md={12} lg={12}>
         <Paper className={classes.paper}>
-          <Summary />
+          <Summary attackList={resultCalculate} />
         </Paper>
       </Grid>
       <Grid item xs={12} md={12} lg={12}>

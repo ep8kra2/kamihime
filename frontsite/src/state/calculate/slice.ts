@@ -28,17 +28,19 @@ const initialCalcurateState: CalcurateState = {
     {...{} as SelectedPhantom,slot:7},
 
   ] as SelectedPhantom[],
-  parameter:{playerRank:1,
-    elementId:1, 
-    goodAtWeapon1:1, 
-    goodAtWeapon2:0, 
-    attack:1,
-    hp:1,
-    barstRate:5.5,
-    barstLimitUp:0,
-    hpRate:100,
-    enemyDefence:10,
-    debufferDefence:0} as Parameter
+  parameter:{
+    playerRank:{name:"playerRank",categoryId:0,impactTypeId:0,value:1},
+    elementId:{name:"elementId",categoryId:0,impactTypeId:0,value:1},
+    goodAtWeapon1:{name:"goodAtWeapon1",categoryId:0,impactTypeId:0,value:1},
+    goodAtWeapon2:{name:"goodAtWeapon2",categoryId:0,impactTypeId:0,value:0},
+    attack:{name:"攻撃",categoryId:1,impactTypeId:1,value:10000},
+    hp:{name:"HP",categoryId:1,impactTypeId:1,value:1000},
+    barstRate:{name:"バースト",categoryId:1,impactTypeId:1,value:550},
+    barstLimitUp:{name:"バースト上限",categoryId:1,impactTypeId:1,value:0},
+    hpRate:{name:"hpRate",categoryId:0,impactTypeId:0,value:100},
+    enemyDefence:{name:"enemyDefence",categoryId:0,impactTypeId:0,value:10},
+    debufferDefence:{name:"debufferDefence",categoryId:0,impactTypeId:0,value:0},
+  } as Parameter
 }
 
 export const calcurateSlice = createSlice({

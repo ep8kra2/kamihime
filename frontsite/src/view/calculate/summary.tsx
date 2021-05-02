@@ -8,6 +8,10 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Normal from './normal';
 import Barst from './barst';
+import Result from './Result';
+import { AttackProps } from './type';
+import { isNormal } from '../../domain/calculate/normal/service';
+import { isBarst } from '../../domain/calculate/barst/service';
 
 const useStyles = makeStyles((theme:Theme) => ({
   paper: {
@@ -43,7 +47,7 @@ function TabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box p={2} className={classes.box}>
+        <Box p={3} className={classes.box}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -58,9 +62,23 @@ function a11yProps(index: any) {
   };
 }
 
-export const Summary = () => {
+export const Summary = (attackProps:AttackProps) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+
+  const normalList = attackProps.attackList.map((row) => {
+    return{
+      ...row,
+      values: row.values.filter((line) => isNormal(line.categoryId))
+    }
+  })
+
+  const barstList = attackProps.attackList.map((row) => {
+    return {
+      ...row,
+      values: row.values.filter((line) => isBarst(line.categoryId))
+    }
+  })
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -70,15 +88,19 @@ export const Summary = () => {
     <Paper className={classes.paper}>
       <AppBar position="static" className={classes.appbar}>
         <Tabs value={value} onChange={handleChange} aria-label="summaryLabel">
-          <Tab label="通常攻撃" {...a11yProps(0)} />
-          <Tab label="バースト" {...a11yProps(1)} />
+          <Tab label="結果" {...a11yProps(0)} />
+          <Tab label="通常攻撃" {...a11yProps(1)} />
+          <Tab label="バースト" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <Normal />
+        <Result attackList={attackProps.attackList} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Barst />
+        <Normal attackList={normalList} />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <Barst attackList={barstList} />
       </TabPanel>
     </Paper>
   )
