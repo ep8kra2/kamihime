@@ -96,6 +96,7 @@ export const Result = (attackProps:AttackProps) => {
           variant="outlined"
         />  
         <br />
+        <br />
         <TextField
           className={classes.text}
           id="normalAttackId"
