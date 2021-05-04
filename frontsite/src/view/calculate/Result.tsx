@@ -95,8 +95,8 @@ export const Result = (attackProps:AttackProps) => {
           }}
           variant="outlined"
         />  
-        <br />
-        <br />
+      </Paper>
+      <Paper className={classes.paper}>
         <TextField
           className={classes.text}
           id="normalAttackId"
@@ -119,7 +119,6 @@ export const Result = (attackProps:AttackProps) => {
           }}
           variant="outlined"
         />
-
       </Paper>
     </React.Fragment>
   )
