@@ -40,13 +40,13 @@ export const getRealValue = (uncontrolledValue:number,limitBreakRate:number) => 
   return (thirdLimit + (secondLimitValue - thirdLimit) * thirdAttenuation)
 }
 
-  // 総合攻撃力
-  export const resultValue = (rowData:Attack) => {
-    return rowData.values.filter((row) => isNormal(row.categoryId) && row.impactTypeId === 1).reduce((result,row) => {
-      result = result * (row.name === "攻撃"? Number(row.value) :1 + Number(row.value) / 100)
-      return result
-    },1 )
-  }
+// 総合攻撃力
+export const resultValue = (rowData:Attack) => {
+  return rowData.values.filter((row) => isNormal(row.categoryId) && row.impactTypeId === 1).reduce((result,row) => {
+    result = result * (row.name === "攻撃"? Number(row.value) :1 + Number(row.value) / 100)
+    return result
+  },1 )
+}
 
 // 減衰前ダメージ
 export const uncontrolledValue = (rowData:Attack,parameter:Parameter):number => {
